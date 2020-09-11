@@ -7,21 +7,20 @@ from datetime import date, datetime
 
 class InsuredResource(Resource):
 
-    def _list_provider(self):
-        providers = ProviderModel.list_all()
+    def _list_insured(self):
+        insured = InsuredModel.list_all()
 
-        return list(map(lambda provider: {
-            'id': providers.id,
-            'name': providers.first_name,
-            'email': providers.email,
-            'status': providers.status,
-            'password': providers.password
-        }, providers))
+        return list(map(lambda insured: {
+            'id': insured.id,
+            'name': insured.first_name,
+            'email': insured.email,
+            'status': insured.status
+        }, insured))
 
     # @jwt_required
     def get(self):
         try:
-            return self._list_provider()
+            return self._list_insured()
         except Exception as e:
             return f"{e}", 500
 
@@ -30,15 +29,13 @@ class InsuredResource(Resource):
 
         try:
             if item:
-                model = ProviderModel()
-                model.business_name = item['first_name']
-                model.fantasy_name = item['last_name']
+                model = InsuredModel()
+                model.first_name = item['first_name']
+                model.last_name = item['last_name']
                 model.email = item['email']
                 model.cel = item['cel']
                 model.tel = item['tel']
                 model.cpf = item['cpf']
-                model.status = item['status']
-                # model.status = item['status'] if 'active' in item else True
                 model.password = item['password']
                 model.created_date = date.today()
                 model.save()
@@ -50,31 +47,32 @@ class InsuredResource(Resource):
             return f"{e}", 500
 
 
-class ProviderDetailResource(Resource):
+class InsuredDetailResource(Resource):
 
-    def _get_provider(self, id_provider):
-        provider = ProviderModel.get_by_id(id_provider)
+    def _get_insured(self, id_insured):
+        insured = InsuredModel.get_by_id(id_insured)
 
-        if provider is None:
-            return {'message': 'Provider not found'}, 404
-
+        if insured is None:
+            return {'message': 'Insured not found'}, 404
+        created_date = insured.created_date.strftime("%d/%m/%Y")
+         
         return {
-            'id': provider.id,
-            'first_name':provider.first_name,
-            'last_name': provider.last_name,
-            'cpf':provider.cpf,
-            'tel':provider.tel,
-            'cel':provider.cel,
-            'email':provider.email,
-            'status':provider.status,
-            'created_date':provider.created_date
+            'id': insured.id,
+            'first_name':insured.first_name,
+            'last_name': insured.last_name,
+            'cpf':insured.cpf,
+            'tel':insured.tel,
+            'cel':insured.cel,
+            'email':insured.email,
+            'status':insured.status,
+            'created_date': created_date
         }
 
     @jwt_required
     def get(self, id):
         try:
-            id_provider = id
-            return self._get_provider(id_provider)
+            id_insured = id
+            return self._get_insured(id_insured)
 
         except Exception as e:
             return f"{e}", 500
@@ -85,7 +83,7 @@ class ProviderDetailResource(Resource):
 
         try:
             if item:
-                model = ProviderModel.get_by_id(id)
+                model = InsuredModel.get_by_id(id)
                 if 'first_name' in item:
                     model.first_name = item['first_name']
                 if 'last_name' in item:
@@ -114,8 +112,8 @@ class ProviderDetailResource(Resource):
 
     def delete(self, id):
         try:
-            provider = ProviderModel.get_by_id(id)
-            provider.delete()
+            insured = InsuredModel.get_by_id(id)
+            insured.delete()
             return 'No Content', 204
 
         except Exception as e:

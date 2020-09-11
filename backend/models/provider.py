@@ -21,19 +21,19 @@ class ProviderModel(db.Model):
         return db.session.query(ProviderModel).filter_by(email=email).first()
 
     @staticmethod
-    def get_by_id(id_user: int):
-        return ProviderModel.query.filter_by(id=id_user).first()
+    def get_by_id(id_provider: int):
+        return ProviderModel.query.filter_by(id=id_provider).first()
     @staticmethod
     def get_cpf(cnpj):
         return ProviderModel.query.get(cnpj=cnpj)
     
     @staticmethod
     def get_status(status):
-        return InsuredModel.query.filter_by(status=status).all()
+        return ProviderModel.query.filter_by(status=status).all()
 
     @staticmethod
-    def get_by_ids(ids_user):
-        return ProviderModel.query(ProviderModel.id.in_(ids_user)).all()
+    def get_by_ids(ids_provider):
+        return ProviderModel.query(ProviderModel.id.in_(ids_provider)).all()
 
     @staticmethod
     def list_all():
@@ -41,10 +41,10 @@ class ProviderModel(db.Model):
 
     @staticmethod
     def authenticate(email, password):
-        user = ProviderModel.query.filter_by(email=email).first()
-        if user and user.status == 'ativo':
-            if password == user.password:
-                return user
+        provider = ProviderModel.query.filter_by(email=email).first()
+        if provider and provider.status == 'ativo':
+            if password == provider.password:
+                return provider
         return None
 
     def save(self):

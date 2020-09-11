@@ -1,7 +1,7 @@
 from flask import request
 from flask_jwt_simple import create_jwt
 from flask_restful import Resource
-from models.user import UserModel
+from models.insured import InsuredModel
 from os import environ
 from datetime import date, datetime
 
@@ -12,24 +12,30 @@ class AuthenticationResource(Resource):
         data = request.get_json()
         email = data['email'].strip()
         password = data['password']
-        user = UserModel.authenticate(email, password)
+        insured = InsuredModel.authenticate(email, password)
 
-        if user:
+        if insured:
 
             access = create_jwt({
-                'id_user': user.id,
-                'email': user.email,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'active': user.active
+                'id_insured': insured.id,
+                'email': insured.email,
+                'first_name': insured.first_name,
+                'last_name': insured.last_name,
+                'cpf': insured.cpf,
+                'tel': insured.tel,
+                'cel': insured.cel,
+                'status': insured.status
             })
 
             return {
-                'id_user': user.id,
-                'email': user.email,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'active': user.active,
+                'id_insured': insured.id,
+                'email': insured.email,
+                'first_name': insured.first_name,
+                'last_name': insured.last_name,
+                'cpf': insured.cpf,
+                'tel': insured.tel,
+                'cel': insured.cel,
+                'status': insured.status,
                 'jwt': access
             }, 200
         else:

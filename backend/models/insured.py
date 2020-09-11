@@ -21,8 +21,8 @@ class InsuredModel(db.Model):
         return db.session.query(InsuredModel).filter_by(email=email).first()
 
     @staticmethod
-    def get_by_id(id_user: int):
-        return InsuredModel.query.filter_by(id=id_user).first()
+    def get_by_id(id_insured: int):
+        return InsuredModel.query.filter_by(id=id_insured).first()
     @staticmethod
     def get_cpf(cpf):
         return InsuredModel.query.get(cpf=cpf)
@@ -32,8 +32,8 @@ class InsuredModel(db.Model):
         return InsuredModel.query.filter_by(status=status).all()
 
     @staticmethod
-    def get_by_ids(ids_user):
-        return InsuredModel.query(InsuredModel.id.in_(ids_user)).all()
+    def get_by_ids(ids_insured):
+        return InsuredModel.query(InsuredModel.id.in_(ids_insured)).all()
 
     @staticmethod
     def list_all():
@@ -41,10 +41,10 @@ class InsuredModel(db.Model):
 
     @staticmethod
     def authenticate(email, password):
-        user = InsuredModel.query.filter_by(email=email).first()
-        if user and user.status == 'ativo':
-            if password == user.password:
-                return user
+        insured = InsuredModel.query.filter_by(email=email).first()
+        if insured and insured.status == 'ativo':
+            if password == insured.password:
+                return insured
         return None
 
     def save(self):

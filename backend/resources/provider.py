@@ -14,8 +14,7 @@ class ProviderResource(Resource):
             'id': providers.id,
             'name': providers.fantasy_name,
             'email': providers.email,
-            'status': providers.status,
-            'password': providers.password
+            'status': providers.status
         }, providers))
 
     # @jwt_required
@@ -37,8 +36,6 @@ class ProviderResource(Resource):
                 model.cel = item['cel']
                 model.tel = item['tel']
                 model.cnpj = item['cnpj']
-                model.status = item['status']
-                # model.status = item['status'] if 'active' in item else True
                 model.password = item['password']
                 model.created_date = date.today()
                 model.save()
