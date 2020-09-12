@@ -2,6 +2,8 @@ from models import db
 from models.user import UserModel
 from models.insured import InsuredModel
 from models.provider import ProviderModel
+from models.emergency import EmergencyModel
+from models.petSchedule import PetScheduleModel
 
 from os import environ
 # importar model aqui
