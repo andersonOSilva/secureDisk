@@ -1,23 +1,32 @@
 from flask import request, jsonify
-from flask_jwt_simple import jwt_required, get_jwt
 from flask_restful import Resource
-from models.user import UserModel
 from datetime import date, datetime
+from flask_jwt_simple import jwt_required, get_jwt
+
+from utils import *
+    # insert_into_insured
+    # select_insured_by_user_id
+    # update_insured
+    # delete
+from models.user import UserModel
 
 
 class UserResource(Resource):
 
     def _list_user(self):
+
         users = UserModel.list_all()
+
 
         return list(map(lambda user: {
             'id': user.id,
-            'name': user.first_name,
             'email': user.email,
-            'active': user.active,
-            'password': user.password
-        }, users))
-
+            'status': user.status,
+            'type_user': user.type_user,
+            'created_date': user.created_date.strftime("%d/%m/%Y"),
+            'url_details': f'http://192.168.1.108:8080/api/user/{user.id}'
+            }, users))
+    
     # @jwt_required
     def get(self):
         try:
@@ -30,16 +39,33 @@ class UserResource(Resource):
 
         try:
             if item:
-                model = UserModel()
-                model.first_name = item['first_name']
-                model.last_name = item['last_name']
-                model.email = item['email']
-                model.active = item['active'] if 'active' in item else True
-                model.password = item['password']
-                model.timestamp = date.today()
-                model.save()
+                # valida os dados de inserção
+                if not user_validate(item)['success']:
+                    return user_validate(item), 400
+                    
+                # insere os itens de usuario
+                user = UserModel()
+                user.email = item['email']
+                user.password = item['password']
+                user.type_user = item['type_user']
+                user.active = item['active'] if 'active' in item else True
+                user.created_date = date.today()
+                user.save()
+                
+                user_inserted = UserModel.get_by_email(item['email'])
+                
+                # cehca o tipo de usuario
+                if str(item["type_user"]) == "insured":
+                    # insere as info do usuario na tabela de acordo com o tipo
+                    response = insert_into_insured(item, user_inserted)
+                elif str(item["type_user"]) == "provider":
+                    # insere as info do usuario na tabela de acordo com o tipo
+                    response = insert_into_provider(item, user_inserted)
+                else:
+                    # insere as info do usuario na tabela de acordo com o tipo
+                    response = insert_into_collaborator(item, user_inserted)
 
-                return 'created', 201
+                return response, 201
             else:
                 return 'not created, invalid payload', 400
         except Exception as e:
@@ -51,17 +77,31 @@ class UserDetailResource(Resource):
     def _get_user(self, id_user):
         user = UserModel.get_by_id(id_user)
 
+
         if user is None:
             return {'message': 'User not found'}, 404
 
+        if user.type_user == "insured":
+            response = select_insured_by_user_id(user)
+
+        elif user.type_user == "provider":
+            response = select_provider_by_user_id(user)
+            
+        else:
+            response = select_collaborator_by_user_id(user)
+            
+        
         return {
-            'id': user.id,
-            'name': user.first_name,
-            'email': user.email,
-            'active': user.active
+            'id':user.id,
+            'email':user.email,
+            'status': user.status,
+            'type_user': user.type_user,
+            'created_date': user.created_date.strftime("%d/%m/%Y"),
+            'data':response
+            
         }
 
-    @jwt_required
+    # @jwt_required
     def get(self, id):
         try:
             id_user = id
@@ -76,20 +116,30 @@ class UserDetailResource(Resource):
 
         try:
             if item:
-                model = UserModel.get_by_id(id)
-                if 'first_name' in item:
-                    model.first_name = item['first_name']
-                if 'last_name' in item:
-                    model.last_name = item['last_name']
-                if 'email' in item:
-                    model.email = item['email']
-                if 'active' in item:
-                    model.active = item['active'] if 'active' in item else True
-                if 'password' in item:
-                    model.password = item['password']
-                model.save()
+                
+                if not user_update_validate(item)['success']:
+                    return user_update_validate(item), 400
 
-                return 'edited', 204
+                user = UserModel.get_by_id(id)
+
+                
+                if 'email' in item:
+                    user.email = item['email']
+                if 'status' in item:
+                    user.status = item['status']
+                if 'password' in item:
+                    user.password = item['password']
+                user.save()
+
+                if str(item["type_user"]) == "insured":
+                    response = update_insured(item, user)
+                elif str(item["type_user"]) == "provider":
+                    response = update_provider(item, user)
+                    
+                else:
+                    response = update_collaborator(item, user)
+                    
+                return response, 200
             else:
                 return 'unedited, invalid payload', 400
 
@@ -98,8 +148,26 @@ class UserDetailResource(Resource):
 
     def delete(self, id):
         try:
+
             user = UserModel.get_by_id(id)
-            user.delete()
+            if user:
+                
+                if user.type_user == "insured":
+                    response = delete_insured(user.id)
+                elif user.type_user == "provider":
+                    response = delete_provider(user.id)
+                    
+                else:
+                    response = delete_collaborator(user.id)
+                    
+                
+                if response["success"]:
+                    user.delete()
+                else:
+                    return 'User no deleted', 500
+            else:
+                return 'User not found', 404
+
             return 'No Content', 204
 
         except Exception as e:

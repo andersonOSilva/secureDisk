@@ -2,7 +2,7 @@ from flask import request
 from flask_restful import Resource
 from models.insured import InsuredModel
 from re import match
-from services.email import EmailService
+from utils.email import EmailService
 
 PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})"
 

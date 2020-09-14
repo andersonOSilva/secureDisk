@@ -1,9 +1,11 @@
 from models import db
+from models.pet import PetModel
 from models.user import UserModel
 from models.insured import InsuredModel
 from models.provider import ProviderModel
 from models.emergency import EmergencyModel
 from models.petSchedule import PetScheduleModel
+from models.collaborator import CollaboratorModel
 
 from os import environ
 # importar model aqui
@@ -17,6 +19,7 @@ class Schema:
         # aqui alteramos o banco
         engine = create_engine(environ.get('SQLALCHEMY_DATABASE_URI'))
         # <ClassModelName>.__table__.drop(engine)
+		#cria tabelas
         db.create_all()
 # # ________________________________________________________________________
 import sqlite3
