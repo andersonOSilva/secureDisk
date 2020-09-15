@@ -8,6 +8,7 @@ from utils import *
     # select_insured_by_user_id
     # update_insured
     # delete
+    # -encrypt
 from models.user import UserModel
 
 
@@ -46,7 +47,7 @@ class UserResource(Resource):
                 # insere os itens de usuario
                 user = UserModel()
                 user.email = item['email']
-                user.password = item['password']
+                user.password = encrypt(item['password'])
                 user.type_user = item['type_user']
                 user.active = item['active'] if 'active' in item else True
                 user.created_date = date.today()
@@ -73,7 +74,7 @@ class UserResource(Resource):
 
 
 class UserDetailResource(Resource):
-
+    
     def _get_user(self, id_user):
         user = UserModel.get_by_id(id_user)
 
@@ -128,7 +129,8 @@ class UserDetailResource(Resource):
                 if 'status' in item:
                     user.status = item['status']
                 if 'password' in item:
-                    user.password = item['password']
+                    user.password = encrypt(item['password'])
+
                 user.save()
 
                 if str(item["type_user"]) == "insured":
