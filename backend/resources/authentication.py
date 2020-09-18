@@ -15,7 +15,6 @@ class AuthenticationResource(Resource):
         data = request.get_json()
         email = data['email'].strip()
         password = encrypt(data['password'])
-        print(password)
         user = UserModel.authenticate(email, password)
 
         if user:

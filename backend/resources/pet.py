@@ -2,6 +2,7 @@ from flask import request, jsonify
 from flask_jwt_simple import jwt_required, get_jwt
 from flask_restful import Resource
 from models.pet import PetModel
+from models.user import UserModel
 from datetime import date, datetime
 
 class PetResource(Resource):
@@ -33,13 +34,11 @@ class PetResource(Resource):
         try:
             if item:
                 model = PetModel()
-                model.id = item['id'] 
                 model.name = item['name'] 
                 model.species = item['species'] 
                 model.breed = item['breed'] 
                 model.size = item['size'] 
                 model.weight = item['weight'] 
-                model.status = item['status'] 
                 model.insured_id = item['insured_id']
                 model.created_date = date.today()
                 model.save()
@@ -53,7 +52,17 @@ class PetResource(Resource):
 class PetDetailResource(Resource):
 
     def _get_pet(self, id_pet):
+        
         pet = PetModel.get_by_id(id_pet)
+        user = UserModel.get_by_id(pet.insured_id)
+        owner = {
+                'id': user.id,
+                'email': user.email,
+                'status': user.status,
+                'type_user': user.type_user,
+                'created_date': user.created_date.strftime("%d/%m/%Y"),
+                'url_details': f'http://192.168.1.108:8080/api/user/{user.id}'
+            }
 
         if pet is None:
             return {'message': 'Pet not found'}, 404
@@ -66,12 +75,15 @@ class PetDetailResource(Resource):
             'size':pet.size,
             'weight':pet.weight,
             'status':pet.status,
-            'created_date':pet.created_date
+            'insured_id':pet.insured_id,
+            'created_date':pet.created_date.strftime("%d/%m/%Y"),
+            'owner_data':owner
         }
     
     # @jwt_required
     def get(self, id):
         try:
+            # print(id)
             id_pet = id
             return self._get_pet(id_pet)
         except Exception as e:

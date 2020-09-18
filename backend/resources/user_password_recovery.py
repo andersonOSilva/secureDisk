@@ -1,6 +1,6 @@
 from flask import request
 from flask_restful import Resource
-from models.insured import InsuredModel
+from models.user import UserModel
 from re import match
 from utils.email import EmailService
 
@@ -10,13 +10,13 @@ PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,
 class UserPasswordRecoveryResource(Resource):
     def get(self):
         email = request.args['email']
-        insured = InsuredModel.get_by_email(email)
+        user = UserModel.get_by_email(email)
 
-        if insured:
+        if user:
             message = "email com link de recuperação"
 
             email_service = EmailService()
-            email_service.send(to_address=insured.email, message_content=message,
+            email_service.send(to_address=user.email, message_content=message,
                                subject='SecureDisk - Recuperação de senha')
 
             return {'message': 'Recovery message sent'}
@@ -30,10 +30,10 @@ class UserPasswordRecoveryResource(Resource):
         new_password = request.json.get('new_password')
         error = None
 
-        insured = InsuredModel.get_by_email(email)
+        user = UserModel.get_by_email(email)
 
         # Validations
-        if not insured:
+        if not user:
             error = 'Email nao cadastrado'
 
         elif not match(PASSWORD_PATTERN, new_password):
@@ -42,7 +42,7 @@ class UserPasswordRecoveryResource(Resource):
         if error:
             return {'message': error}, 400
 
-        insured.password = InsuredModel.generate_hash(new_password)
-        insured.save()
+        user.password = UserModel.generate_hash(new_password)
+        user.save()
 
         return None, 204

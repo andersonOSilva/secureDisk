@@ -5,9 +5,18 @@ from flask_jwt_simple import jwt_required, get_jwt
 
 from utils import *
     # insert_into_insured
+    # insert_into_provider
+    # insert_into_collaborator
     # select_insured_by_user_id
+    # select_collaborator_by_user_id
+    # select_provider_by_user_id
     # update_insured
-    # delete
+    # update_collaborator
+    # update_provider
+    # delete_provider
+    # delete_collaborator
+    # delete_insured
+    # validator
     # -encrypt
 from models.user import UserModel
 
@@ -55,7 +64,7 @@ class UserResource(Resource):
                 
                 user_inserted = UserModel.get_by_email(item['email'])
                 
-                # cehca o tipo de usuario
+                # checa o tipo de usuario
                 if str(item["type_user"]) == "insured":
                     # insere as info do usuario na tabela de acordo com o tipo
                     response = insert_into_insured(item, user_inserted)
@@ -102,7 +111,7 @@ class UserDetailResource(Resource):
             
         }
 
-    # @jwt_required
+    @jwt_required
     def get(self, id):
         try:
             id_user = id
@@ -111,7 +120,7 @@ class UserDetailResource(Resource):
         except Exception as e:
             return f"{e}", 500
 
-    # @jwt_required
+    @jwt_required
     def put(self, id):
         item = request.get_json() if request.get_json() else request.form
 

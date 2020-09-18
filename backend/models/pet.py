@@ -17,7 +17,7 @@ class PetModel(db.Model):
 
     @staticmethod
     def get_by_id(id_pet):
-        return db.session.query(PetModel).get(id_pet=id_pet)
+        return PetModel.query.filter_by(id=id_pet).first()
 
     @staticmethod
     def get_by_species(species):
@@ -30,6 +30,10 @@ class PetModel(db.Model):
     @staticmethod
     def get_by_insured(insured_id):
         return db.session.query(PetModel).filter_by(insured_id=insured_id).all()
+
+    @staticmethod
+    def list_all():
+        return PetModel.query.order_by(PetModel.insured_id).all()
 
     def save(self):
         db.session.merge(self)
