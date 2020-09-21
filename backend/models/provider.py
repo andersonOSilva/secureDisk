@@ -1,3 +1,8 @@
+# nome
+# email
+# senha
+# cnpj
+# nome_fantasia
 from models import db
 
 

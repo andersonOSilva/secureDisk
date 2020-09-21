@@ -1,3 +1,8 @@
+	# nome
+	# email
+	# senha
+	# status
+	# idapolice
 from models import db
 
 
@@ -12,7 +17,12 @@ class InsuredModel(db.Model):
     cel: str = db.Column(db.String(11), nullable=False)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    policy_id = db.Column(db.Integer, db.ForeignKey('policy.id'))
     # user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE', onupdate='CASCADE'),nullable=False)
+
+    @staticmethod
+    def get_by_first_name(first_name):
+        return InsuredModel.query.filter_by(first_name=first_name).first()
 
     @staticmethod
     def get_by_email(email):

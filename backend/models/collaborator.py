@@ -1,3 +1,6 @@
+    # nome
+	# email
+	# senha
 from models import db
 
 
@@ -7,7 +10,7 @@ class CollaboratorModel(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     first_name: str = db.Column(db.String(30), nullable=False)
     last_name: str = db.Column(db.String(100), nullable=False)
-    cpf: str = db.Column(db.String(14), nullable=False, unique=True)
+    registration: str = db.Column(db.String(9), nullable=False, unique=True)
     tel: str = db.Column(db.String(10), nullable=False)
     cel: str = db.Column(db.String(11), nullable=True)
 
@@ -15,12 +18,12 @@ class CollaboratorModel(db.Model):
     
 
     @staticmethod
-    def get_by_email(email):
-        return CollaboratorModel.query.filter_by(email=email).first()
+    def get_by_email(first_name):
+        return CollaboratorModel.query.filter_by(first_name=first_name).first()
 
     @staticmethod
-    def get_cpf(cpf):
-        return CollaboratorModel.query.filter_by(cpf=cpf).first()
+    def get_registration(registration):
+        return CollaboratorModel.query.filter_by(registration=registration).first()
 
     @staticmethod
     def get_by_id(id_collaborator: int):

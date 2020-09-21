@@ -1,3 +1,7 @@
+    # idproposta
+	# idsegu
+	# data
+	# idpropos
 from models import db
 
 class PetModel(db.Model):
@@ -12,12 +16,17 @@ class PetModel(db.Model):
    
     status: str = db.Column(db.String(), nullable=False, default='ativo')
 
+    proposal_id = db.Column(db.Integer, db.ForeignKey('proposal.id', ondelete='CASCADE', onupdate='CASCADE'))
     insured_id = db.Column(db.Integer, db.ForeignKey('insured.id', ondelete='CASCADE', onupdate='CASCADE'))
     created_date = db.Column(db.Date)
-
+    
     @staticmethod
     def get_by_id(id_pet):
         return PetModel.query.filter_by(id=id_pet).first()
+    
+    @staticmethod
+    def get_by_email(name):
+        return PetModel.query.filter_by(name=name).first()
 
     @staticmethod
     def get_by_species(species):

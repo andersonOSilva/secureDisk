@@ -12,7 +12,7 @@ def insert_into_collaborator( item, user):
             collaborator.last_name = item['last_name']
             collaborator.cel = item['cel']
             collaborator.tel = item['tel']
-            collaborator.cpf = item['cpf']
+            collaborator.registration = item['registration']
             collaborator.password = item['password']
             collaborator.user_id = user.id
             collaborator.save()
@@ -40,7 +40,7 @@ def select_collaborator_by_user_id( user):
                 'id': collaborator.id,
                 'first_name':collaborator.first_name,
                 'last_name': collaborator.last_name,
-                'cpf':collaborator.cpf,
+                'registration':collaborator.registration,
                 'tel':collaborator.tel,
                 'cel':collaborator.cel
             }
@@ -62,8 +62,8 @@ def update_collaborator( item, user):
                 collaborator.last_name = item['last_name']
             if 'email' in item:
                 collaborator.email = item['email']
-            if 'cpf' in item:
-                collaborator.cpf = item['cpf']
+            if 'registration' in item:
+                collaborator.registration = item['registration']
             if 'tel' in item:
                 collaborator.tel = item['tel']
             if 'cel' in item:

@@ -1,11 +1,15 @@
 from models import db
 from models.pet import PetModel
 from models.user import UserModel
+from models.policy import PolicyModel
 from models.insured import InsuredModel
 from models.provider import ProviderModel
+from models.proposal import ProposalModel
 from models.emergency import EmergencyModel
+from models.planPolicy import PlanPolicyModel
 from models.petSchedule import PetScheduleModel
-from models.collaborator import CollaboratorModel
+from models.planProposal import PlanProposalModel
+
 
 from os import environ
 # importar model aqui

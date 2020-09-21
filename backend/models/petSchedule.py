@@ -1,10 +1,14 @@
+    # idprov
+	# idproposta
+	# data
+	# hora
+	# desc
 from models import db
 
 class PetScheduleModel(db.Model):
     __tablename__ = 'petSchedule'
 
     id: int = db.Column(db.Integer, primary_key=True)
-    proposal: str = db.Column(db.String(100), nullable=False)
     name: str = db.Column(db.String(100), nullable=False)
     email: str = db.Column(db.String(100), nullable=False)
     date = db.Column(db.Date)
@@ -12,7 +16,8 @@ class PetScheduleModel(db.Model):
 
     status: str = db.Column(db.String(), nullable=False, default='ativo')
 
-    pet_id = db.Column(db.Integer, db.ForeignKey('pet.id', ondelete='CASCADE', onupdate='CASCADE'))
+    provider_id = db.Column(db.Integer, db.ForeignKey('provider.id', ondelete='CASCADE', onupdate='CASCADE'))
+    proposal_id = db.Column(db.Integer, db.ForeignKey('proposal.id', ondelete='CASCADE', onupdate='CASCADE'))
     created_date = db.Column(db.Date)
 
     @staticmethod
@@ -28,8 +33,12 @@ class PetScheduleModel(db.Model):
         return db.session.query(PetScheduleModel).filter_by(email=email).all()
     
     @staticmethod
-    def get_by_pet(pet_id):
-        return db.session.query(PetScheduleModel).filter_by(pet_id=pet_id).all()
+    def get_by_pet(proposal_id):
+        return db.session.query(PetScheduleModel).filter_by(proposal_id=proposal_id).all()
+    
+    @staticmethod
+    def get_by_pet(provider_id):
+        return db.session.query(PetScheduleModel).filter_by(provider_id=provider_id).all()
     
     @staticmethod
     def get_by_status(status):

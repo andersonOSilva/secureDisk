@@ -1,3 +1,11 @@
+    # chamado
+	# label
+	# lat
+	# log
+	# tipo
+	# idcollab
+	# idvet
+	# idpet
 from models import db
 
 class EmergencyModel(db.Model):
@@ -13,6 +21,8 @@ class EmergencyModel(db.Model):
     status: str = db.Column(db.String(), nullable=False, default='ativo')
 
     insured_id = db.Column(db.Integer, db.ForeignKey('insured.id', ondelete='CASCADE', onupdate='CASCADE'))
+    collab_id = db.Column(db.Integer, db.ForeignKey('collaborator.id', ondelete='CASCADE', onupdate='CASCADE'))
+    pet_id = db.Column(db.Integer, db.ForeignKey('pet.id', ondelete='CASCADE', onupdate='CASCADE'))
     created_date = db.Column(db.Date)
 
     @staticmethod
@@ -26,6 +36,14 @@ class EmergencyModel(db.Model):
     @staticmethod
     def get_by_insured(insured_id):
         return db.session.query(EmergencyModel).filter_by(insured_id=insured_id).all()
+    
+    @staticmethod
+    def get_by_collab(collab_id):
+        return db.session.query(EmergencyModel).filter_by(collab_id=collab_id).all()
+    
+    @staticmethod
+    def get_by_pet(pet_id):
+        return db.session.query(EmergencyModel).filter_by(pet_id=pet_id).all()
 
     def save(self):
         db.session.merge(self)
