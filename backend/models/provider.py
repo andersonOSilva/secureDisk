@@ -28,7 +28,7 @@ class ProviderModel(db.Model):
         return ProviderModel.query.filter_by(cnpj=cnpj).first()
 
     @staticmethod
-    def get_by_id(id_provider: int):
+    def get_by_id(id_provider):
         return ProviderModel.query.filter_by(id=id_provider).first()
         
     @staticmethod
@@ -38,7 +38,7 @@ class ProviderModel(db.Model):
     @staticmethod
     def get_by_user_id(user_id):
         return ProviderModel.query.filter_by(user_id=user_id).first()
-
+    
     @staticmethod
     def list_all():
         return ProviderModel.query.order_by(ProviderModel.fantasy_name).all()

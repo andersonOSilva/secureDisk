@@ -40,4 +40,4 @@ def startup():
 # Run application
 if __name__ == '__main__':
     print('Initilizing application')
-    application.run(debug=False, host='192.168.1.110', port = 8080)
+    application.run(debug=False, host='127.0.0.1', port = 8080)

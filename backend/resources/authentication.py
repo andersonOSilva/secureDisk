@@ -45,7 +45,7 @@ class AuthenticationResource(Resource):
                                     'id': user_data.id,
                                     'first_name':user_data.first_name,
                                     'last_name': user_data.last_name,
-                                    'cpf':user_data.cpf,
+                                    'registration':user_data.registration,
                                     'tel':user_data.tel,
                                     'cel':user_data.cel
                                 }

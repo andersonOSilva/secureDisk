@@ -49,8 +49,8 @@ def collaborator_validate(request):
     if 'last_name' not in request or not isinstance(request['last_name'], str):
         return {'success': False, 'message':'last_name'}
 
-    if 'cpf' not in request or not isinstance(request['cpf'], str) or len(request['cpf']) > 14:
-        return {'success': False, 'message':'cpf'}
+    if 'registration' not in request or not isinstance(request['registration'], str) or len(request['registration']) > 10:
+        return {'success': False, 'message':'registration'}
     
     return {'success':True}
 
@@ -81,7 +81,9 @@ def insured_update_validate(request):
     
     if 'cpf' in request and not isinstance(request['cpf'], str) or 'cpf' in request and len(request['cpf']) > 14:
         return {'success': False, 'message':'cpf'}
-        
+    
+    if 'policy' not in request:
+        return {'success': False, 'message':'policy'}
     
     return {'success':True}
 

@@ -10,7 +10,7 @@ class CollaboratorModel(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     first_name: str = db.Column(db.String(30), nullable=False)
     last_name: str = db.Column(db.String(100), nullable=False)
-    registration: str = db.Column(db.String(9), nullable=False, unique=True)
+    registration: str = db.Column(db.String(10), nullable=False, unique=True)
     tel: str = db.Column(db.String(10), nullable=False)
     cel: str = db.Column(db.String(11), nullable=True)
 

@@ -1,7 +1,3 @@
-    # numero
-	# idplanoapolice
-
-
 from models import db
 
 
@@ -9,8 +5,10 @@ class ProposalModel(db.Model):
     __tablename__ = 'proposal'
 
     id: int = db.Column(db.Integer, primary_key=True)
-    number: str = db.Column(db.String(30), nullable=False)
-    
+    number: str = db.Column(db.String(11), nullable=False, unique=True, autoincrement=True)
+    status: str = db.Column(db.String(100), nullable=False, default='ativo')
+    created_date = db.Column(db.Date)
+
     plan_proposal_id = db.Column(db.Integer, db.ForeignKey('planProposal.id', ondelete='CASCADE', onupdate='CASCADE'))
     # user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE', onupdate='CASCADE'),nullable=False)
 
@@ -32,7 +30,11 @@ class ProposalModel(db.Model):
         
     @staticmethod
     def list_all():
-        return ProposalModel.query.order_by(ProposalModel.first_name).all()
+        return ProposalModel.query.order_by(ProposalModel.number).all()
+    
+    @staticmethod
+    def get_by_status( status):
+        return ProposalModel.query.filter_by(status=status).all()
 
     def save(self):
         db.session.merge(self)

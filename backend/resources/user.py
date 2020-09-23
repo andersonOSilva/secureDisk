@@ -34,7 +34,7 @@ class UserResource(Resource):
             'status': user.status,
             'type_user': user.type_user,
             'created_date': user.created_date.strftime("%d/%m/%Y"),
-            'url_details': f'http://192.168.1.108:8080/api/user/{user.id}'
+            'url_details': f'http://127.0.0.1:8080/api/user/{user.id}'
             }, users))
     
     # @jwt_required
@@ -111,7 +111,7 @@ class UserDetailResource(Resource):
             
         }
 
-    @jwt_required
+    # @jwt_required
     def get(self, id):
         try:
             id_user = id
@@ -120,7 +120,7 @@ class UserDetailResource(Resource):
         except Exception as e:
             return f"{e}", 500
 
-    @jwt_required
+    # @jwt_required
     def put(self, id):
         item = request.get_json() if request.get_json() else request.form
 

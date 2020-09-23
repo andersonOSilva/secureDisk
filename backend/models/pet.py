@@ -37,8 +37,12 @@ class PetModel(db.Model):
         return db.session.query(PetModel).filter_by(breed=breed).all()
     
     @staticmethod
+    def get_by_proposal(proposal_id):
+        return db.session.query(PetModel).filter_by(proposal_id=proposal_id).first()
+    
+    @staticmethod
     def get_by_insured(insured_id):
-        return db.session.query(PetModel).filter_by(insured_id=insured_id).all()
+        return db.session.query(PetModel).filter_by(insured_id=insured_id).first()
 
     @staticmethod
     def list_all():

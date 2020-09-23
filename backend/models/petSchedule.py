@@ -11,7 +11,8 @@ class PetScheduleModel(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     name: str = db.Column(db.String(100), nullable=False)
     email: str = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.Date)
+    # date = db.Column(db.Date)
+    date:str = db.Column(db.String(10),nullable=False)
     time: str = db.Column(db.String(5), nullable=False)
 
     status: str = db.Column(db.String(), nullable=False, default='ativo')
@@ -22,7 +23,7 @@ class PetScheduleModel(db.Model):
 
     @staticmethod
     def get_by_id(id_pet_schedule):
-        return db.session.query(PetScheduleModel).get(id_pet_schedule=id_pet_schedule)
+        return db.session.query(PetScheduleModel).filter_by(id=id_pet_schedule).first()
 
     @staticmethod
     def get_by_name(name):
@@ -51,6 +52,10 @@ class PetScheduleModel(db.Model):
     @staticmethod
     def get_by_hour(hour):
         return db.session.query(PetScheduleModel).filter_by(hour=hour).all()
+    
+    @staticmethod
+    def list_all():
+        return PetScheduleModel.query.order_by(PetScheduleModel.name).all()
 
     def save(self):
         db.session.merge(self)

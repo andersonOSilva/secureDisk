@@ -1,9 +1,12 @@
+import hashlib
+from .pet import *
+from .email import *
+from .policy import *
+from .proposal import *
 from .insured import *
-from .collaborator import *
 from .provider import *
 from .validator import *
-from .email import *
-import hashlib
+from .collaborator import *
 
 def encrypt(password):
     password += "çopademacaco"

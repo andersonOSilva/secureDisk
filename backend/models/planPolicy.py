@@ -1,7 +1,3 @@
-    # numero
-	# idplanoapolice
-
-
 from models import db
 
 
@@ -10,25 +6,31 @@ class PlanPolicyModel(db.Model):
 
     id: int = db.Column(db.Integer, primary_key=True)
     name: str = db.Column(db.String(30), nullable=False)
-    desc: str = db.Column(db.String(30), nullable=False)
+    desc: str = db.Column(db.String(100), nullable=False)
+    status: str = db.Column(db.String(100), nullable=False, default='ativo')
+    created_date = db.Column(db.Date)
     
     # user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE', onupdate='CASCADE'),nullable=False)
 
     @staticmethod
     def get_by_name(name):
-        return db.session.query(PlanPolicy).filter_by(name=name).first()
+        return PlanPolicyModel.query.filter_by(name=name).first()
 
     @staticmethod
     def get_by_id(id_plan: int):
-        return PlanPolicy.query.filter_by(id=id_plan).first()
+        return PlanPolicyModel.query.filter_by(id=id_plan).first()
 
     @staticmethod
     def get_by_ids(ids_plan):
-        return PlanPolicy.query(PlanPolicy.id.in_(ids_plan)).all()
+        return PlanPolicyModel.query(PlanPolicyModel.id.in_(ids_plan)).all()
         
     @staticmethod
     def list_all():
-        return PlanPolicy.query.order_by(PlanPolicy.first_name).all()
+        return PlanPolicyModel.query.order_by(PlanPolicyModel.name).all()
+
+    @staticmethod
+    def get_by_status( status):
+        return PlanPolicyModel.query.filter_by(status=status).all()
 
     def save(self):
         db.session.merge(self)

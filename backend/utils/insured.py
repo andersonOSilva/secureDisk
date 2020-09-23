@@ -1,12 +1,21 @@
-from models.insured import InsuredModel
 from datetime import date, datetime
+from models.policy import PolicyModel
+from models.pet import PetModel
+from models.insured import InsuredModel
+from .policy import select_plan_policy_by_id 
 from sqlalchemy.exc import SQLAlchemyError
+from utils.policy import insert_into_policy
 import sqlite3
 
 def insert_into_insured( item, user):
     try:
+        
         if item:
-            
+            # cria a apolice no banco e busca seu id 
+            insert_into_policy(item['policy'])
+            policy = PolicyModel.get_by_number(item['policy']['number'])
+            print(policy)
+
             insured = InsuredModel()
             insured.first_name = item['first_name']
             insured.last_name = item['last_name']
@@ -15,11 +24,13 @@ def insert_into_insured( item, user):
             insured.cpf = item['cpf']
             insured.password = item['password']
             insured.user_id = user.id
+            insured.policy_id = policy.id
             insured.save()
 
             return {"succes":True,"message":'Insured created'}
         else:
             user.delete()
+            policy.delete()
             return {"succes":False, "message":'Not created insured, invalid payload'}
     
     except Exception as e:
@@ -32,6 +43,37 @@ def insert_into_insured( item, user):
 def select_insured_by_user_id( user):
     try:
         insured = InsuredModel.get_by_user_id(user.id)
+        insured_policy = PolicyModel.get_by_id(insured.policy_id)
+
+        policy = {
+            'id':insured_policy.id,
+            'number':insured_policy.number,
+            'status':insured_policy.status,
+            'created_date':insured_policy.created_date.strftime("%d/%m/%Y"),
+            'plan':select_plan_policy_by_id(insured_policy.plan_policy_id)
+        }
+
+        if insured is None:
+            return {'success':False,'message': 'Insured not found'}
+        else:
+            return {
+                'id': insured.id,
+                'first_name':insured.first_name,
+                'last_name': insured.last_name,
+                'cpf':insured.cpf,
+                'tel':insured.tel,
+                'cel':insured.cel,
+                'policy': policy
+
+            }
+            
+
+    except Exception as e:
+        return {"succes":False, "message":f'{e} invalid payload'}
+
+def select_insured_by_policy_id(policy_id):
+    try:
+        insured = InsuredModel.get_by_policy_id(policy_id)
 
         if insured is None:
             return {'success':False,'message': 'Insured not found'}
@@ -89,6 +131,11 @@ def update_insured( item, user):
 def delete_insured( id):
     try:
         insured = InsuredModel.get_by_user_id(id)
+        policy = PolicyModel.get_by_id(insured.policy_id)
+        pet = PetModel.get_by_insured(insured.id)
+        
+        pet.delete()
+        policy.delete()
         insured.delete()
 
         return {"success":True, "message":'insured deleted'}

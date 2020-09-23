@@ -39,6 +39,10 @@ class InsuredModel(db.Model):
     @staticmethod
     def get_by_user_id(user_id):
         return InsuredModel.query.filter_by(user_id=user_id).first()
+    
+    @staticmethod
+    def get_by_policy_id(policy_id):
+        return InsuredModel.query.filter_by(policy_id=policy_id).first()
         
 
     @staticmethod
