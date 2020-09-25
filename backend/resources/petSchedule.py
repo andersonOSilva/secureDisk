@@ -11,7 +11,6 @@ class PetScheduleResource(Resource):
     
     def _list_pet_schedule(self):
         petSchedule = PetScheduleModel.list_all()
-        print(petSchedule)
         # provider = ProviderModel.get_by_id(petSchedule.provider_id)
         # pet = PetModel.get_by_proposal(petSchedule.proposal_id)
 
@@ -32,10 +31,10 @@ class PetScheduleResource(Resource):
         return list(map(lambda petSchedule:{
             'id':petSchedule.id,
             'name':petSchedule.name,
-            # 'pet_name':pet.name,
+            'pet_name':select_pet_by_proposal_id(petSchedule.proposal_id)['name'],
             'date':petSchedule.date,
-            'time':petSchedule.time
-            # 'provider_name':provider.name
+            'time':petSchedule.time,
+            'provider_name':select_provider_by_id(petSchedule.provider_id)['fantasy_name']
             
         },petSchedule))
     
@@ -74,7 +73,6 @@ class PetScheduleDetailResource(Resource):
         pet = PetModel.get_by_proposal(pet_schedule.proposal_id)
         insured = InsuredModel.get_by_id(pet.insured_id)
         proposal = select_plan_proposal_by_id(pet_schedule.proposal_id)
-        
         
         pacient = {
             'id':pet.id,

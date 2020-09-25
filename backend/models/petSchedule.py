@@ -19,6 +19,7 @@ class PetScheduleModel(db.Model):
 
     provider_id = db.Column(db.Integer, db.ForeignKey('provider.id', ondelete='CASCADE', onupdate='CASCADE'))
     proposal_id = db.Column(db.Integer, db.ForeignKey('proposal.id', ondelete='CASCADE', onupdate='CASCADE'))
+    pet_id = db.Column(db.Integer, db.ForeignKey('pet.id', ondelete='CASCADE', onupdate='CASCADE'))
     created_date = db.Column(db.Date)
 
     @staticmethod
@@ -34,11 +35,15 @@ class PetScheduleModel(db.Model):
         return db.session.query(PetScheduleModel).filter_by(email=email).all()
     
     @staticmethod
-    def get_by_pet(proposal_id):
+    def get_by_pet(pet_id):
+        return db.session.query(PetScheduleModel).filter_by(pet_id=pet_id).all()
+    
+    @staticmethod
+    def get_by_proposal(proposal_id):
         return db.session.query(PetScheduleModel).filter_by(proposal_id=proposal_id).all()
     
     @staticmethod
-    def get_by_pet(provider_id):
+    def get_by_provider(provider_id):
         return db.session.query(PetScheduleModel).filter_by(provider_id=provider_id).all()
     
     @staticmethod
@@ -50,8 +55,8 @@ class PetScheduleModel(db.Model):
         return db.session.query(PetScheduleModel).filter_by(date=date).all()
     
     @staticmethod
-    def get_by_hour(hour):
-        return db.session.query(PetScheduleModel).filter_by(hour=hour).all()
+    def get_by_hour(time):
+        return db.session.query(PetScheduleModel).filter_by(time=time).all()
     
     @staticmethod
     def list_all():

@@ -2,6 +2,8 @@ from datetime import date, datetime
 from models.policy import PolicyModel
 from models.pet import PetModel
 from models.insured import InsuredModel
+from models.petSchedule import PetScheduleModel
+from models.proposal import ProposalModel
 from .policy import select_plan_policy_by_id 
 from sqlalchemy.exc import SQLAlchemyError
 from utils.policy import insert_into_policy
@@ -132,8 +134,14 @@ def delete_insured( id):
     try:
         insured = InsuredModel.get_by_user_id(id)
         policy = PolicyModel.get_by_id(insured.policy_id)
-        pet = PetModel.get_by_insured(insured.id)
+        pet = PetModel.get_by_insured(insured.insured_id)
+        proposal = ProposalModel.get_by_id(pet.proposal_id)
+        pet_schedule = PetScheduleModel.get_by_pet(pet.id)
         
+        if pet_schedule:
+            pet_schedule.delete()
+        
+        proposal.delete()
         pet.delete()
         policy.delete()
         insured.delete()

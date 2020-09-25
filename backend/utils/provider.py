@@ -26,7 +26,25 @@ def insert_into_provider( item, user):
         return {"succes":False, "message":f'{e} invalid payload','type_error':'provider/utils'}
 
 
+def select_provider_by_id(id):
+    try:
+        provider = ProviderModel.get_by_id(id)
+        
+        if provider is None:
+            return {'success':False,'message': 'Provider not found'}
+        else:
+            return {
+                'id': provider.id,
+                'business_name':provider.business_name,
+                'fantasy_name': provider.fantasy_name,
+                'cnpj':provider.cnpj,
+                'tel':provider.tel,
+                'cel':provider.cel
+            }
+            return {"succes":True,"message":'Provider found'}
 
+    except Exception as e:
+        return {"succes":False, "message":f'{e} invalid payload'}
 
 def select_provider_by_user_id( user):
     try:
@@ -43,7 +61,7 @@ def select_provider_by_user_id( user):
                 'tel':provider.tel,
                 'cel':provider.cel
             }
-            return {"succes":True,"message":'Provider created'}
+            return {"succes":True,"message":'Provider found'}
 
     except Exception as e:
         return {"succes":False, "message":f'{e} invalid payload'}
