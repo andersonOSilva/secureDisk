@@ -133,36 +133,36 @@ def select_emergency_insured_by_id(id_emergency):
 def update_emergency_pet(id,item):
     try:
         model = EmergencyPetModel.get_by_id(id)
-
-        if 'call_type' in item['call_type']:
+        
+        if 'call_type' in item:
             
             model.call_type = item['call_type']
 
-        if 'call' in item['call']:
+        if 'call' in item:
             
             model.call = item['call']
 
-        if 'label' in item['label']:
+        if 'label' in item:
             
             model.label = item['label']
 
-        if 'latitude' in item['latitude']:
+        if 'latitude' in item:
             
             model.latitude = item['latitude']
 
-        if 'longitude' in item['longitude']:
+        if 'longitude' in item:
             
             model.longitude = item['longitude']
 
-        if 'policy_id' in item['policy_id']:
+        if 'policy_id' in item:
             
             model.policy_id = item['policy_id']
 
-        if 'provider_id' in item['provider_id']:
+        if 'provider_id' in item:
             
             model.provider_id = item['provider_id']
 
-        if 'collab_id' in item['collab_id']:
+        if 'collab_id' in item:
             
             model.collab_id = item['collab_id']
 
@@ -181,35 +181,35 @@ def update_emergency_insured(id,item):
     try:
         model = EmergencyInsuredModel.get_by_id(id)
 
-        if 'call_type' in item['call_type']:
+        if 'call_type' in item:
             
             model.call_type = item['call_type']
 
-        if 'call' in item['call']:
+        if 'call' in item:
             
             model.call = item['call']
 
-        if 'label' in item['label']:
+        if 'label' in item:
             
             model.label = item['label']
 
-        if 'latitude' in item['latitude']:
+        if 'latitude' in item:
             
             model.latitude = item['latitude']
 
-        if 'longitude' in item['longitude']:
+        if 'longitude' in item:
             
             model.longitude = item['longitude']
 
-        if 'policy_id' in item['policy_id']:
+        if 'policy_id' in item:
             
             model.policy_id = item['policy_id']
 
-        if 'provider_id' in item['provider_id']:
+        if 'provider_id' in item:
             
             model.provider_id = item['provider_id']
 
-        if 'collab_id' in item['collab_id']:
+        if 'collab_id' in item:
             
             model.collab_id = item['collab_id']
 

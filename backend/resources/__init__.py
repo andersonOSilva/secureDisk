@@ -42,6 +42,7 @@ def initialize_resources(application):
     # from resources.insured import InsuredDetailResource
     from resources.emergencyInsured import EmergencyInsuredDetailResource
     from resources.emergencyPet import EmergencyPetDetailResource
+    from resources.emergency import EmergencyDetailResource
     from resources.planProposal import PlanProposalDetailResource
     from resources.petSchedule import PetScheduleDetailResource
     from resources.planPolicy import PlanPolicyDetailResource
@@ -70,6 +71,7 @@ def initialize_resources(application):
     api.add_resource(ProposalDetailResource, '/api/proposal/<int:id>')
     api.add_resource(PlanPolicyDetailResource, '/api/planPolicy/<int:id>')
     api.add_resource(PetScheduleDetailResource, '/api/petSchedule/<int:id>')
+    api.add_resource(EmergencyDetailResource, '/api/emergency/<int:id>')
     api.add_resource(EmergencyPetDetailResource, '/api/emergencyPet/<int:id>')
     api.add_resource(PlanProposalDetailResource, '/api/planProposal/<int:id>')
     api.add_resource(EmergencyInsuredDetailResource, '/api/emergencyInsured/<int:id>')

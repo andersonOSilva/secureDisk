@@ -62,7 +62,8 @@ class EmergencyResource(Resource):
                 return 'not created, invalid payload', 400
         except Exception as e:
             return f"{e}", 500
-   
+
+class EmergencyDetailResource(Resource):
     # @jwt_required
     def put(self, id):
         item = request.get_json() if request.get_json() else request.form
@@ -70,7 +71,9 @@ class EmergencyResource(Resource):
         try:
             if item:
                 if item['call_type'].lower() == 'pet':
+                    
                     update_emergency_pet(id,item)
+                    
                 else:
                     update_emergency_insured(id,item)
 
