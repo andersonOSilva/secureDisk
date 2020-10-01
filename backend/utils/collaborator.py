@@ -1,7 +1,8 @@
-from models.collaborator import CollaboratorModel
-from datetime import date, datetime
 from sqlalchemy.exc import SQLAlchemyError
+from datetime import date, datetime
 import sqlite3
+
+from models.collaborator import CollaboratorModel
 
 def insert_into_collaborator( item, user):
     try:
@@ -29,9 +30,9 @@ def insert_into_collaborator( item, user):
 
 
 
-def select_collaborator_by_user_id( user):
+def select_collaborator_by_user_id( user_id):
     try:
-        collaborator = CollaboratorModel.get_by_user_id(user.id)
+        collaborator = CollaboratorModel.get_by_user_id(user_id)
 
         if collaborator is None:
             return {'success':False,'message': 'Collaborator not found'}

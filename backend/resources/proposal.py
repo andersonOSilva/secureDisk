@@ -1,10 +1,11 @@
 from flask import request, jsonify
-from flask_jwt_simple import jwt_required, get_jwt
 from flask_restful import Resource
+from datetime import date, datetime
+from flask_jwt_simple import jwt_required, get_jwt
+
 from models.proposal import ProposalModel
 from utils import *
 
-from datetime import date, datetime
 
 class ProposalResource(Resource):
     
@@ -56,8 +57,8 @@ class ProposalDetailResource(Resource):
             'number':proposal.number,
             'status':proposal.status,
             'created_date':proposal.created_date.strftime("%d/%m/%Y"),
-            'pet':select_pet_by_proposal_id(id),
-            'plan_proposal':select_plan_proposal_by_id(proposal.plan_proposal_id)
+            'pet':select_pet_by_proposal_id(id)['pet'],
+            'plan_proposal':select_pet_by_proposal_id(id)['proposal_details']['plan_proposal']
         }
     
     # @jwt_required

@@ -1,8 +1,3 @@
-	# nome
-	# email
-	# senha
-	# status
-	# idapolice
 from models import db
 
 

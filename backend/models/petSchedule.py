@@ -1,8 +1,3 @@
-    # idprov
-	# idproposta
-	# data
-	# hora
-	# desc
 from models import db
 
 class PetScheduleModel(db.Model):

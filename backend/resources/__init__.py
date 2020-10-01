@@ -30,6 +30,7 @@ def initialize_resources(application):
     from resources.collaborator import CollaboratorResource
     from resources.petSchedule import PetScheduleResource
     from resources.planPolicy import PlanPolicyResource
+    from resources.emergency import EmergencyResource
     from resources.proposal import ProposalResource
     from resources.provider import ProviderResource
     from resources.insured import InsuredResource
@@ -39,6 +40,8 @@ def initialize_resources(application):
     
     # from resources.provider import ProviderDetailResource
     # from resources.insured import InsuredDetailResource
+    from resources.emergencyInsured import EmergencyInsuredDetailResource
+    from resources.emergencyPet import EmergencyPetDetailResource
     from resources.planProposal import PlanProposalDetailResource
     from resources.petSchedule import PetScheduleDetailResource
     from resources.planPolicy import PlanPolicyDetailResource
@@ -53,6 +56,7 @@ def initialize_resources(application):
     api.add_resource(InsuredResource, '/api/insured')
     api.add_resource(ProposalResource, '/api/proposal')
     api.add_resource(ProviderResource, '/api/provider')
+    api.add_resource(EmergencyResource, '/api/emergency')
     api.add_resource(PlanPolicyResource, '/api/planPolicy')
     api.add_resource(PetScheduleResource, '/api/petSchedule')
     api.add_resource(CollaboratorResource, '/api/collaborator')
@@ -66,7 +70,9 @@ def initialize_resources(application):
     api.add_resource(ProposalDetailResource, '/api/proposal/<int:id>')
     api.add_resource(PlanPolicyDetailResource, '/api/planPolicy/<int:id>')
     api.add_resource(PetScheduleDetailResource, '/api/petSchedule/<int:id>')
+    api.add_resource(EmergencyPetDetailResource, '/api/emergencyPet/<int:id>')
     api.add_resource(PlanProposalDetailResource, '/api/planProposal/<int:id>')
+    api.add_resource(EmergencyInsuredDetailResource, '/api/emergencyInsured/<int:id>')
     # api.add_resource(InsuredDetailResource, '/api/insured/<int:id>')
     # api.add_resource(ProviderDetailResource, '/api/provider/<int:id>')
 

@@ -1,9 +1,10 @@
 from flask import request, jsonify
-from flask_jwt_simple import jwt_required, get_jwt
 from flask_restful import Resource
+from datetime import date, datetime
+from flask_jwt_simple import jwt_required, get_jwt
+
 from models.planProposal import PlanProposalModel
 
-from datetime import date, datetime
 
 class PlanProposalResource(Resource):
     

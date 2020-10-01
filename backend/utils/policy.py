@@ -1,7 +1,8 @@
-from models.policy import PolicyModel
 from datetime import date, datetime
 from sqlalchemy.exc import SQLAlchemyError
+
 from models.planPolicy import PlanPolicyModel
+from models.policy import PolicyModel
 
 def insert_into_policy(item):
     try:

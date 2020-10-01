@@ -1,8 +1,3 @@
-# nome
-# email
-# senha
-# cnpj
-# nome_fantasia
 from models import db
 
 
@@ -15,7 +10,7 @@ class ProviderModel(db.Model):
     cnpj: str = db.Column(db.String(19), nullable=False, unique=True)
     tel: str = db.Column(db.String(10), nullable=False)
     cel: str = db.Column(db.String(11), nullable=True)
-    type_provider: str = db.Column(db.String(256), nullable=False, default='Veterinário')
+    type_provider: str = db.Column(db.String(256), nullable=False)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE', onupdate='CASCADE'))
 

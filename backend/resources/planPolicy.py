@@ -1,9 +1,9 @@
 from flask import request, jsonify
-from flask_jwt_simple import jwt_required, get_jwt
 from flask_restful import Resource
-from models.planPolicy import PlanPolicyModel
-
 from datetime import date, datetime
+from flask_jwt_simple import jwt_required, get_jwt
+
+from models.planPolicy import PlanPolicyModel
 
 class PlanPolicyResource(Resource):
     

@@ -1,7 +1,3 @@
-    # idproposta
-	# idsegu
-	# data
-	# idpropos
 from models import db
 
 class PetModel(db.Model):

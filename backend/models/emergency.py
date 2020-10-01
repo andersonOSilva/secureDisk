@@ -1,11 +1,4 @@
-    # chamado
-	# label
-	# lat
-	# log
-	# tipo
-	# idcollab
-	# idvet
-	# idpet
+
 from models import db
 
 class EmergencyModel(db.Model):

@@ -1,6 +1,3 @@
-    # nome
-	# email
-	# senha
 from models import db
 
 

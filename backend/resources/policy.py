@@ -1,24 +1,11 @@
 from flask import request, jsonify
-from flask_jwt_simple import jwt_required, get_jwt
 from flask_restful import Resource
-from models.policy import PolicyModel
 from datetime import date, datetime
+from flask_jwt_simple import jwt_required, get_jwt
 
+from models.policy import PolicyModel
 from utils import *
-    # insert_into_insured
-    # insert_into_provider
-    # insert_into_collaborator
-    # select_insured_by_user_id
-    # select_collaborator_by_user_id
-    # select_provider_by_user_id
-    # update_insured
-    # update_collaborator
-    # update_provider
-    # delete_provider
-    # delete_collaborator
-    # delete_insured
-    # validator
-    # -encrypt
+
 
 class PolicyResource(Resource):
     

@@ -7,6 +7,7 @@ from .insured import *
 from .provider import *
 from .validator import *
 from .collaborator import *
+from .emergency import *
 
 def encrypt(password):
     password += "çopademacaco"

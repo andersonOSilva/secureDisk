@@ -1,13 +1,15 @@
-from datetime import date, datetime
-from models.policy import PolicyModel
-from models.pet import PetModel
-from models.insured import InsuredModel
-from models.petSchedule import PetScheduleModel
-from models.proposal import ProposalModel
-from .policy import select_plan_policy_by_id 
 from sqlalchemy.exc import SQLAlchemyError
-from utils.policy import insert_into_policy
+from datetime import date, datetime
 import sqlite3
+
+from models.pet import PetModel
+from models.policy import PolicyModel
+from models.insured import InsuredModel
+from models.proposal import ProposalModel
+from models.petSchedule import PetScheduleModel
+
+from .policy import select_plan_policy_by_id 
+from utils.policy import insert_into_policy
 
 def insert_into_insured( item, user):
     try:
@@ -42,9 +44,9 @@ def insert_into_insured( item, user):
 
 
 
-def select_insured_by_user_id( user):
+def select_insured_by_user_id(user_id):
     try:
-        insured = InsuredModel.get_by_user_id(user.id)
+        insured = InsuredModel.get_by_user_id(user_id)
         insured_policy = PolicyModel.get_by_id(insured.policy_id)
 
         policy = {
@@ -87,6 +89,7 @@ def select_insured_by_policy_id(policy_id):
                 'cpf':insured.cpf,
                 'tel':insured.tel,
                 'cel':insured.cel
+                
             }
             
 

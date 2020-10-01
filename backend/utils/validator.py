@@ -107,8 +107,8 @@ def collaborator_update_validate(request):
     if 'last_name' in request and not isinstance(request['last_name'], str):
         return {'success': False, 'message':'last_name'}
 
-    if 'cpf' in request and not isinstance(request['cpf'], str) or 'cpf' in request and len(request['cpf']) > 14:
-        return {'success': False, 'message':'cpf'}
+    if 'registration' in request and not isinstance(request['registration'], str) or 'registration' in request and len(request['registration']) > 10:
+        return {'success': False, 'message':'registration'}
     
     return {'success':True}
 

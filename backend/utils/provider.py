@@ -1,7 +1,8 @@
-from models.provider import ProviderModel
+import sqlite3
 from datetime import date, datetime
 from sqlalchemy.exc import SQLAlchemyError
-import sqlite3
+
+from models.provider import ProviderModel
 
 def insert_into_provider( item, user):
     try:
@@ -9,6 +10,7 @@ def insert_into_provider( item, user):
             provider = ProviderModel()
             provider.business_name = item['business_name']
             provider.fantasy_name = item['fantasy_name']
+            provider.type_provider = item['type_provider']
             provider.cnpj = item['cnpj']
             provider.tel = item['tel']
             provider.cel = item['cel']
@@ -39,16 +41,16 @@ def select_provider_by_id(id):
                 'fantasy_name': provider.fantasy_name,
                 'cnpj':provider.cnpj,
                 'tel':provider.tel,
-                'cel':provider.cel
+                'type_provider':provider.type_provider
             }
             return {"succes":True,"message":'Provider found'}
 
     except Exception as e:
         return {"succes":False, "message":f'{e} invalid payload'}
 
-def select_provider_by_user_id( user):
+def select_provider_by_user_id( user_id):
     try:
-        provider = ProviderModel.get_by_user_id(user.id)
+        provider = ProviderModel.get_by_user_id(user_id)
 
         if provider is None:
             return {'success':False,'message': 'Provider not found'}
@@ -59,6 +61,7 @@ def select_provider_by_user_id( user):
                 'fantasy_name': provider.fantasy_name,
                 'cnpj':provider.cnpj,
                 'tel':provider.tel,
+                'type_provider':provider.type_provider,
                 'cel':provider.cel
             }
             return {"succes":True,"message":'Provider found'}
@@ -78,6 +81,8 @@ def update_provider( item, user):
                 provider.business_name = item['business_name']
             if 'fantasy_name' in item:
                 provider.fantasy_name = item['fantasy_name']
+            if 'type_provider' in item:
+                provider.type_provider = item['type_provider']
             if 'cnpj' in item:
                 provider.cnpj = item['cnpj']
             if 'tel' in item:
