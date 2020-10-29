@@ -9,3 +9,4 @@ backend/resources/__pycache__/emergencyInsured.cpython-38.pyc
 backend/resources/__pycache__/emergencyPet.cpython-38.pyc
 backend/resources/__pycache__/pet.cpython-38.pyc
 backend/resources/__pycache__/user.cpython-38.pyc
+backend/db.sqlite3
