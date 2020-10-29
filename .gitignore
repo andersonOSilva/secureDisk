@@ -1,0 +1,11 @@
+
+backend/models/__pycache__/emergencyInsured.cpython-38.pyc
+backend/models/__pycache__/emergencyPet.cpython-38.pyc
+backend/models/__pycache__/insured.cpython-38.pyc
+backend/models/__pycache__/pet.cpython-38.pyc
+backend/resources/__pycache__/__init__.cpython-38.pyc
+backend/resources/__pycache__/emergency.cpython-38.pyc
+backend/resources/__pycache__/emergencyInsured.cpython-38.pyc
+backend/resources/__pycache__/emergencyPet.cpython-38.pyc
+backend/resources/__pycache__/pet.cpython-38.pyc
+backend/resources/__pycache__/user.cpython-38.pyc
