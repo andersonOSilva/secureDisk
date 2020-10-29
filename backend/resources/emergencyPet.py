@@ -8,6 +8,27 @@ from models.proposal import ProposalModel
 from flask_jwt_simple import jwt_required, get_jwt
 from utils import *
 
+
+class EmergencyPetResource(Resource):
+    def post(self):
+        
+        item = request.get_json() if request.get_json() else request.form
+        
+        try:
+            model = EmergencyPetModel()
+            model.call = item["call"]
+            model.call_type = item["call_type"]
+            model.latitude  = item["lat"]
+            model.longitude = item["log"]
+            model.proposal_id = item["proposal_id"]
+            model.created_date = date.today()
+
+            model.save()
+            print("se fude ou cralaho")
+            return 201,"created"
+        except Exception as e:
+            return 500, f"nao criado {e}"
+
 class EmergencyPetDetailResource(Resource):
 
     def _get_emergency(self, id_emergency):

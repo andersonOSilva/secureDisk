@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from sqlalchemy.exc import SQLAlchemyError
-from utils import select_pet_by_proposal_id, select_plan_policy_by_id
+from utils import select_pet_by_proposal_id, select_plan_policy_by_id, select_plan_proposal_by_id
 
 from models.planPolicy import PlanPolicyModel
 from models.emergencyInsured import EmergencyInsuredModel
@@ -86,6 +86,109 @@ def select_emergency_pet_by_id(id_emergency):
             
         }
         
+def select_emergency_insured_by_policy(policy_number):
+    policy = PolicyModel.get_by_number(policy_number)
+    emergency = EmergencyInsuredModel.get_by_policy(policy.id)
+    
+    insured = InsuredModel.get_by_policy_id(emergency.policy_id)
+    if emergency.provider_id != 0:
+        
+        provider = ProviderModel.get_by_id(emergency.provider_id)
+        provider_associated = {
+        'id':provider.id,
+        'fantasy_name':provider.fantasy_name,
+        'tel':provider.tel,
+        'cel':provider.cel,
+        'provider_details':f'http://127.0.0.1:8080/api/user/{provider.user_id}'
+        
+        }
+    else:
+        provider_associated = ''
+
+    
+    
+    insured_pacient = {
+                'id': insured.id,
+                'first_name':insured.first_name,
+                'last_name': insured.last_name,
+                'cpf':insured.cpf,
+                'tel':insured.tel,
+                'cel':insured.cel,
+                'policy':{
+                    'id':policy.id,
+                    'number':policy.number,
+                    'status':policy.status,
+                    'created_date':policy.created_date.strftime("%d/%m/%Y"),
+                    'plan':select_plan_policy_by_id(policy.plan_policy_id)
+                }
+
+            }
+
+    return {
+            'id':emergency.id,
+            'label':emergency.label,
+            'call_type':emergency.call_type,
+            'call':emergency.call,
+            'latitude':emergency.latitude,
+            'longitude':emergency.longitude,
+            'created_date':emergency.created_date.strftime("%d/%m/%Y"),
+            'provider':provider_associated,
+            'insured_pacient':insured_pacient
+        }
+
+def select_emergency_pet_by_proposal(proposal_number):
+    proposal = ProposalModel.get_by_number(proposal_number)
+    emergency = EmergencyPetModel.get_by_proposal(proposal.id)
+    print(proposal.id)
+    print(emergency.id)
+    pet = PetModel.get_by_proposal(emergency.proposal_id)
+    print(pet)
+    
+    if emergency.provider_id != 0:
+
+        provider = ProviderModel.get_by_id(emergency.provider_id)
+        provider_associated = {
+        'id':provider.id,
+        'fantasy_name':provider.fantasy_name,
+        'tel':provider.tel,
+        'cel':provider.cel,
+        'provider_details':f'http://127.0.0.1:8080/api/user/{provider.user_id}'
+        
+        }
+    else:
+        provider_associated = ''
+
+    
+    
+    insured_pacient = {
+                'id':pet.id,
+                'name':pet.name,
+                'species':pet.species,
+                'breed':pet.breed,
+                'size':pet.size,
+                'weight':pet.weight,
+                'proposal':{
+                    'id':proposal.id,
+                    'number':proposal.number,
+                    'status':proposal.status,
+                    'created_date':proposal.created_date.strftime("%d/%m/%Y"),
+                    'plan':select_plan_proposal_by_id(proposal.plan_proposal_id)
+                }
+
+            }
+
+    return {
+            'id':emergency.id,
+            'label':emergency.label,
+            'call_type':emergency.call_type,
+            'call':emergency.call,
+            'latitude':emergency.latitude,
+            'longitude':emergency.longitude,
+            'created_date':emergency.created_date.strftime("%d/%m/%Y"),
+            'provider':provider_associated,
+            'insured_pacient':insured_pacient
+        }
+
 def select_emergency_insured_by_id(id_emergency):
     emergency = EmergencyInsuredModel.get_by_id(id_emergency)
     provider = ProviderModel.get_by_id(emergency.provider_id)

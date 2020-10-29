@@ -8,6 +8,8 @@ from models.insured import InsuredModel
 from models.proposal import ProposalModel
 from models.petSchedule import PetScheduleModel
 
+from .validator import *
+
 from .policy import select_plan_policy_by_id 
 from utils.policy import insert_into_policy
 
@@ -19,7 +21,7 @@ def insert_into_insured( item, user):
             insert_into_policy(item['policy'])
             policy = PolicyModel.get_by_number(item['policy']['number'])
             print(policy)
-
+            insured_validate(item)
             insured = InsuredModel()
             insured.first_name = item['first_name']
             insured.last_name = item['last_name']

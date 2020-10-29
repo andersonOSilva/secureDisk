@@ -51,17 +51,24 @@ class EmergencyResource(Resource):
         try:
             if item:
                 if item['call_type'].lower() == 'pet':
-                    print('pet')
-                    return insert_into_emergency_pet(item)
+                    # emergency = select_emergency_proposal_by_policy(item["number_policy"])
+                    emergency = select_emergency_pet_by_proposal(item["number_proposal"])
+                    return update_emergency_pet(emergency["id"],item)
+                    # return insert_into_emergency_pet(item)
+                    
                 else:
-                    print('insured')
-                    return insert_into_emergency_insured(item)
+                    
+                    emergency = select_emergency_insured_by_policy(item["number_policy"])
+    
+                    return update_emergency_insured( emergency["id"],item)
+                    # return insert_into_emergency_pet(item)
 
-                
+
+                return 'edited', 200
             else:
-                return 'not created, invalid payload', 400
+                return 'unedited, invalid payload', 400
         except Exception as e:
-            return f"{e}", 500
+            return f"{e}",500
 
 class EmergencyDetailResource(Resource):
     # @jwt_required

@@ -8,11 +8,36 @@ from models.policy import PolicyModel
 from flask_jwt_simple import jwt_required, get_jwt
 from utils import *
 
+class EmergencyInsuredResource(Resource):
+    def post(self):
+        
+        item = request.get_json() if request.get_json() else request.form
+        
+        try:
+            model = EmergencyInsuredModel()
+            model.call_type = item["call_type"]
+            model.latitude  = item["lat"]
+            model.longitude = item["log"]
+            model.policy_id = item["policy_id"]
+            model.created_date = date.today()
+
+            model.save()
+            print("se fude ou cralaho")
+            return 201,"created"
+        except Exception as e:
+            return 500, f"nao criado {e}"
+
+        
+
+# TODO revisar os codigos de details do:
+#   emergencypet
+#   emergencyinsured
+#   petschedule
 class EmergencyInsuredDetailResource(Resource):
 
     def _get_emergency(self, id_emergency):
         emergency = EmergencyInsuredModel.get_by_id(id_emergency)
-        insured = InsuredModel.get_by_id(emergency.policy_id)
+        insured = InsuredModel.get_by_policy_id(emergency.policy_id)
         pacient = select_insured_by_user_id(insured.user_id)
         if emergency is None:
             return {'message': 'Plan not found'}, 404
@@ -42,4 +67,3 @@ class EmergencyInsuredDetailResource(Resource):
         except Exception as e:
             return f"{e}", 500
 
-    

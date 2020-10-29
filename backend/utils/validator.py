@@ -23,7 +23,7 @@ def insured_validate(request):
     if 'last_name' not in request or not isinstance(request['last_name'], str):
         return {'success': False, 'message':'last_name'}
     
-    if 'cpf' not in request or not isinstance(request['cpf'], str) or len(request['cpf']) > 14:
+    if 'cpf' not in request or not isinstance(request['cpf'], str) or len(request['cpf']) != 14:
         return {'success': False, 'message':'cpf'}
         
     

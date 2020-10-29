@@ -19,3 +19,16 @@ def insert_into_proposal(item):
     except Exception as e:
         return f"{e}", 500
 
+def select_plan_proposal_by_id(id_plan):
+    plan = PlanProposalModel.get_by_id(id_plan)
+
+    if plan is None:
+        return {'message': 'Plan not found'}, 404
+
+    return {
+        'id':plan.id,
+        'name':plan.name,
+        'desc':plan.desc,
+        'status':plan.status,
+        'created_date':plan.created_date.strftime("%d/%m/%Y")
+    }

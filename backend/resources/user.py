@@ -53,12 +53,15 @@ class UserResource(Resource):
                 
                 # checa o tipo de usuario
                 if str(item["type_user"]) == "insured":
+                    insured_validate(item)
                     # insere as info do usuario na tabela de acordo com o tipo
                     response = insert_into_insured(item, user_inserted)
                 elif str(item["type_user"]) == "provider":
+                    provider_validate(item)
                     # insere as info do usuario na tabela de acordo com o tipo
                     response = insert_into_provider(item, user_inserted)
                 else:
+                    collaborator_validate(item)
                     # insere as info do usuario na tabela de acordo com o tipo
                     response = insert_into_collaborator(item, user_inserted)
 
@@ -66,6 +69,7 @@ class UserResource(Resource):
             else:
                 return 'not created, invalid payload', 400
         except Exception as e:
+            user.delete()
             return f"{e}", 500
 
 
