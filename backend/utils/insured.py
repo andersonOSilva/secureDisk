@@ -20,7 +20,7 @@ def insert_into_insured( item, user):
             # cria a apolice no banco e busca seu id 
             insert_into_policy(item['policy'])
             policy = PolicyModel.get_by_number(item['policy']['number'])
-            print(policy)
+            
             insured_validate(item)
             insured = InsuredModel()
             insured.first_name = item['first_name']

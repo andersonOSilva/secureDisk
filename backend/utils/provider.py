@@ -14,6 +14,7 @@ def insert_into_provider( item, user):
             provider.cnpj = item['cnpj']
             provider.tel = item['tel']
             provider.cel = item['cel']
+            provider.address = item['address']
             # provider.password = item['password']
             provider.user_id = user.id
             provider.save()
@@ -41,6 +42,7 @@ def select_provider_by_id(id):
                 'fantasy_name': provider.fantasy_name,
                 'cnpj':provider.cnpj,
                 'tel':provider.tel,
+                'address':provider.address,
                 'type_provider':provider.type_provider
             }
             return {"succes":True,"message":'Provider found'}
@@ -61,6 +63,7 @@ def select_provider_by_user_id( user_id):
                 'fantasy_name': provider.fantasy_name,
                 'cnpj':provider.cnpj,
                 'tel':provider.tel,
+                'address':provider.address,
                 'type_provider':provider.type_provider,
                 'cel':provider.cel
             }
@@ -89,6 +92,8 @@ def update_provider( item, user):
                 provider.tel = item['tel']
             if 'cel' in item:
                 provider.cel = item['cel']
+            if 'address' in item:
+                provider.address = item['address']
             if 'status' in item:
                 provider.status = item['status'] 
             if 'password' in item:

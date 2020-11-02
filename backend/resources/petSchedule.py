@@ -12,7 +12,6 @@ class PetScheduleResource(Resource):
         
         petSchedule = PetScheduleModel.list_all()
         
-        print(petSchedule)
         return list(map(lambda petSchedule:{
             'id':petSchedule.id,
             'name':petSchedule.name,

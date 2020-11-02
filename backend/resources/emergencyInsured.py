@@ -22,7 +22,6 @@ class EmergencyInsuredResource(Resource):
             model.created_date = date.today()
 
             model.save()
-            print("se fude ou cralaho")
             return 201,"created"
         except Exception as e:
             return 500, f"nao criado {e}"

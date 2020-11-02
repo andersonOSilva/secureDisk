@@ -9,7 +9,6 @@ class PlanPolicyResource(Resource):
     
     def _list_plan_policy(self):
         plan = PlanPolicyModel.list_all()
-        print(plan)
         return list(map(lambda plan:{
             'id':plan.id,
             'name':plan.name,
@@ -61,7 +60,6 @@ class PlanPolicyDetailResource(Resource):
     # @jwt_required
     def get(self, id):
         try:
-            # print(id)
             id_plan = id
             return self._get_plan_policy(id_plan)
         except Exception as e:

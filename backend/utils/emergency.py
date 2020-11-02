@@ -38,10 +38,8 @@ def insert_into_emergency_insured(item):
         return f"{e}", 500
 
 def insert_into_emergency_pet(item):
-    print('insert_pet')
     try:
         if item:
-            print('insert_pet_if')
             model = EmergencyPetModel()
             model.call = item['call']
             model.call_type = item['call_type']
@@ -139,10 +137,7 @@ def select_emergency_insured_by_policy(policy_number):
 def select_emergency_pet_by_proposal(proposal_number):
     proposal = ProposalModel.get_by_number(proposal_number)
     emergency = EmergencyPetModel.get_by_proposal(proposal.id)
-    print(proposal.id)
-    print(emergency.id)
     pet = PetModel.get_by_proposal(emergency.proposal_id)
-    print(pet)
     
     if emergency.provider_id != 0:
 

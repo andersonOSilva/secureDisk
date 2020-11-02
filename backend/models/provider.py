@@ -10,7 +10,9 @@ class ProviderModel(db.Model):
     cnpj: str = db.Column(db.String(19), nullable=False, unique=True)
     tel: str = db.Column(db.String(10), nullable=False)
     cel: str = db.Column(db.String(11), nullable=True)
+    address: str = db.Column(db.String(255), nullable=False)
     type_provider: str = db.Column(db.String(256), nullable=False)
+    
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE', onupdate='CASCADE'))
 

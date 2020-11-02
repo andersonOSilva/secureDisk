@@ -11,7 +11,6 @@ class ProposalResource(Resource):
     
     def _list_proposal(self):
         proposal = ProposalModel.list_all()
-        print(proposal)
         return list(map(lambda proposal:{
             'id':proposal.id,
             'number':proposal.number,
@@ -64,7 +63,6 @@ class ProposalDetailResource(Resource):
     # @jwt_required
     def get(self, id):
         try:
-            # print(id)
             id = id
             return self._get_proposal(id)
         except Exception as e:
