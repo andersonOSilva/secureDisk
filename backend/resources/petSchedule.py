@@ -16,7 +16,7 @@ class PetScheduleResource(Resource):
         return list(map(lambda petSchedule:{
             'id':petSchedule.id,
             'name':petSchedule.name,
-            'pet_name':select_pet_by_proposal_id(petSchedule.proposal_id)['name'],
+            'pet_name':select_pet_by_proposal_id(petSchedule.proposal_id)['pet']['name'],
             'date':petSchedule.date,
             'time':petSchedule.time,
             'provider_name':select_provider_by_id(petSchedule.provider_id)['fantasy_name']
