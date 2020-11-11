@@ -59,8 +59,6 @@ class PetScheduleDetailResource(Resource):
         provider_associated = {
             'id':provider.id,
             'fantasy_name':provider.fantasy_name,
-            'tel':provider.tel,
-            'cel':provider.cel,
             'provider_details':f'http://127.0.0.1:8080/api/user/{provider.user_id}'
             
         }

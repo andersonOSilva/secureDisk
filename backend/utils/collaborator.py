@@ -11,8 +11,6 @@ def insert_into_collaborator( item, user):
             collaborator = CollaboratorModel()
             collaborator.first_name = item['first_name']
             collaborator.last_name = item['last_name']
-            collaborator.cel = item['cel']
-            collaborator.tel = item['tel']
             collaborator.registration = item['registration']
             collaborator.password = item['password']
             collaborator.user_id = user.id
@@ -41,9 +39,7 @@ def select_collaborator_by_user_id( user_id):
                 'id': collaborator.id,
                 'first_name':collaborator.first_name,
                 'last_name': collaborator.last_name,
-                'registration':collaborator.registration,
-                'tel':collaborator.tel,
-                'cel':collaborator.cel
+                'registration':collaborator.registration
             }
 
     except Exception as e:

@@ -16,8 +16,6 @@ class ProviderResource(Resource):
             'business_name':provider.business_name,
             'fantasy_name': provider.fantasy_name,
             'cnpj':provider.cnpj,
-            'tel':provider.tel,
-            'cel':provider.cel,
             'address':provider.address,
             'type_provider':provider.type_provider,
             'url_details': f'http://127.0.0.1:8080/api/user/{provider.user_id}'

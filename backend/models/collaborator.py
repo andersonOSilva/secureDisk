@@ -8,9 +8,6 @@ class CollaboratorModel(db.Model):
     first_name: str = db.Column(db.String(30), nullable=False)
     last_name: str = db.Column(db.String(100), nullable=False)
     registration: str = db.Column(db.String(10), nullable=False, unique=True)
-    tel: str = db.Column(db.String(10), nullable=False)
-    cel: str = db.Column(db.String(11), nullable=True)
-
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE', onupdate='CASCADE'))
     
 

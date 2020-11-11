@@ -25,8 +25,7 @@ class AuthenticationResource(Resource):
                                     'first_name':user_data.first_name,
                                     'last_name': user_data.last_name,
                                     'cpf':user_data.cpf,
-                                    'tel':user_data.tel,
-                                    'cel':user_data.cel
+                                    
                                 }
             elif user.type_user == 'provider':
                 user_data = ProviderModel.get_by_user_id(user.id)
@@ -35,8 +34,7 @@ class AuthenticationResource(Resource):
                                     'business_name':user_data.business_name,
                                     'fantasy_name': user_data.fantasy_name,
                                     'cnpj':user_data.cnpj,
-                                    'tel':user_data.tel,
-                                    'cel':user_data.cel
+                                    
                                 }
 
             else:
@@ -46,8 +44,7 @@ class AuthenticationResource(Resource):
                                     'first_name':user_data.first_name,
                                     'last_name': user_data.last_name,
                                     'registration':user_data.registration,
-                                    'tel':user_data.tel,
-                                    'cel':user_data.cel
+                                    
                                 }
 
             access = create_jwt({

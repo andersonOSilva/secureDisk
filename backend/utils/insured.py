@@ -25,8 +25,6 @@ def insert_into_insured( item, user):
             insured = InsuredModel()
             insured.first_name = item['first_name']
             insured.last_name = item['last_name']
-            insured.cel = item['cel']
-            insured.tel = item['tel']
             insured.cpf = item['cpf']
             insured.password = item['password']
             insured.user_id = user.id
@@ -67,8 +65,6 @@ def select_insured_by_user_id(user_id):
                 'first_name':insured.first_name,
                 'last_name': insured.last_name,
                 'cpf':insured.cpf,
-                'tel':insured.tel,
-                'cel':insured.cel,
                 'policy': policy
 
             }
@@ -88,9 +84,7 @@ def select_insured_by_policy_id(policy_id):
                 'id': insured.id,
                 'first_name':insured.first_name,
                 'last_name': insured.last_name,
-                'cpf':insured.cpf,
-                'tel':insured.tel,
-                'cel':insured.cel
+                'cpf':insured.cpf
                 
             }
             

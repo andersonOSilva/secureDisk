@@ -1,5 +1,7 @@
 import hashlib
+from .user import *
 from .pet import *
+from .phone import *
 from .email import *
 from .policy import *
 from .proposal import *

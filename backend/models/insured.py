@@ -8,8 +8,6 @@ class InsuredModel(db.Model):
     first_name: str = db.Column(db.String(30), nullable=False)
     last_name: str = db.Column(db.String(100), nullable=False)
     cpf: str = db.Column(db.String(14), nullable=False, unique=True)
-    tel: str = db.Column(db.String(10), nullable=False)
-    cel: str = db.Column(db.String(11), nullable=False)
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     policy_id = db.Column(db.Integer, db.ForeignKey('policy.id'))

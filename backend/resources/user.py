@@ -114,7 +114,6 @@ class UserDetailResource(Resource):
     # @jwt_required
     def put(self, id):
         item = request.get_json() if request.get_json() else request.form
-
         try:
             if item:
                 
@@ -122,6 +121,7 @@ class UserDetailResource(Resource):
                     return user_update_validate(item), 400
 
                 user = UserModel.get_by_id(id)
+                print(user.email)
 
                 
                 if 'email' in item:

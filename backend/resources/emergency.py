@@ -52,16 +52,16 @@ class EmergencyResource(Resource):
             if item:
                 if item['call_type'].lower() == 'pet':
                     # emergency = select_emergency_proposal_by_policy(item["number_policy"])
-                    emergency = select_emergency_pet_by_proposal(item["number_proposal"])
-                    return update_emergency_pet(emergency["id"],item)
-                    # return insert_into_emergency_pet(item)
+                    # emergency = select_emergency_pet_by_proposal(item["number_proposal"])
+                    # return update_emergency_pet(emergency["id"],item)
+                    return insert_into_emergency_pet(item)
                     
                 else:
                     
-                    emergency = select_emergency_insured_by_policy(item["number_policy"])
+                    # emergency = select_emergency_insured_by_policy(item["number_policy"])
     
-                    return update_emergency_insured( emergency["id"],item)
-                    # return insert_into_emergency_pet(item)
+                    # return update_emergency_insured( emergency["id"],item)
+                    return insert_into_emergency_insured(item)
 
 
                 return 'edited', 200

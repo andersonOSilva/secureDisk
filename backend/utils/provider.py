@@ -12,8 +12,6 @@ def insert_into_provider( item, user):
             provider.fantasy_name = item['fantasy_name']
             provider.type_provider = item['type_provider']
             provider.cnpj = item['cnpj']
-            provider.tel = item['tel']
-            provider.cel = item['cel']
             provider.address = item['address']
             # provider.password = item['password']
             provider.user_id = user.id
@@ -65,7 +63,7 @@ def select_provider_by_user_id( user_id):
                 'tel':provider.tel,
                 'address':provider.address,
                 'type_provider':provider.type_provider,
-                'cel':provider.cel
+                
             }
             return {"succes":True,"message":'Provider found'}
 
@@ -75,7 +73,7 @@ def select_provider_by_user_id( user_id):
 
 # @jwt_required
 def update_provider( item, user):
-
+    print(item)
     try:
         if item:
             provider = ProviderModel.get_by_user_id(user.id)

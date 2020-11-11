@@ -38,6 +38,7 @@ def initialize_resources(application):
     from resources.insured import InsuredResource
     from resources.policy import PolicyResource
     from resources.user import UserResource
+    from resources.phone import PhoneResource
     from resources.pet import PetResource
     
     # from resources.provider import ProviderDetailResource
@@ -51,10 +52,12 @@ def initialize_resources(application):
     from resources.proposal import ProposalDetailResource
     from resources.policy import PolicyDetailResource
     from resources.user import UserDetailResource
+    from resources.phone import PhoneDetailResource
     from resources.pet import PetDetailResource
 
     api.add_resource(PetResource, '/api/pet')
     api.add_resource(UserResource, '/api/user')
+    api.add_resource(PhoneResource, '/api/phone')
     api.add_resource(PolicyResource, '/api/policy')
     api.add_resource(InsuredResource, '/api/insured')
     api.add_resource(ProposalResource, '/api/proposal')
@@ -70,6 +73,7 @@ def initialize_resources(application):
     # api.add_resource(ProviderResource, '/api/provider')
 
     api.add_resource(PetDetailResource, '/api/pet/<int:id>')
+    api.add_resource(PhoneDetailResource, '/api/phone/<int:id>')
     api.add_resource(UserDetailResource, '/api/user/<int:id>')
     api.add_resource(PolicyDetailResource, '/api/policy/<int:id>')
     api.add_resource(ProposalDetailResource, '/api/proposal/<int:id>')

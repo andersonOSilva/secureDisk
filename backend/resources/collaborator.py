@@ -17,8 +17,6 @@ class CollaboratorResource(Resource):
             'first_name':collaborator.first_name,
             'last_name': collaborator.last_name,
             'registration':collaborator.registration,
-            'tel':collaborator.tel,
-            'cel':collaborator.cel,
             'url_details': f'http://127.0.0.1:8080/api/user/{collaborator.user_id}'
             }, collaborator))
     

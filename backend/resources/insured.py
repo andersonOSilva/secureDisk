@@ -17,8 +17,6 @@ class InsuredResource(Resource):
             'first_name':insured.first_name,
             'last_name': insured.last_name,
             'cpf':insured.cpf,
-            'tel':insured.tel,
-            'cel':insured.cel,
             'url_details': f'http://127.0.0.1:8080/api/user/{insured.user_id}'
             }, insured))
     

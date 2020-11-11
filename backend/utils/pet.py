@@ -42,8 +42,7 @@ def select_pet_by_proposal_id(proposal_id):
                 },
                 'owner':{
                     'name':f'{insured.first_name} {insured.last_name}',
-                    'tel':insured.tel,
-                    'cel':insured.cel,
+
                     'details':f'http://127.0.0.1:8080/api/user/{insured.user_id}'
                     }
                 

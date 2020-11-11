@@ -65,8 +65,6 @@ def select_emergency_pet_by_id(id_emergency):
     provider_associated = {
         'id':provider.id,
         'fantasy_name':provider.fantasy_name,
-        'tel':provider.tel,
-        'cel':provider.cel,
         'provider_details':f'http://127.0.0.1:8080/api/user/{provider.user_id}'
         
     }
@@ -95,8 +93,6 @@ def select_emergency_insured_by_policy(policy_number):
         provider_associated = {
         'id':provider.id,
         'fantasy_name':provider.fantasy_name,
-        'tel':provider.tel,
-        'cel':provider.cel,
         'provider_details':f'http://127.0.0.1:8080/api/user/{provider.user_id}'
         
         }
@@ -110,8 +106,6 @@ def select_emergency_insured_by_policy(policy_number):
                 'first_name':insured.first_name,
                 'last_name': insured.last_name,
                 'cpf':insured.cpf,
-                'tel':insured.tel,
-                'cel':insured.cel,
                 'policy':{
                     'id':policy.id,
                     'number':policy.number,
@@ -145,8 +139,7 @@ def select_emergency_pet_by_proposal(proposal_number):
         provider_associated = {
         'id':provider.id,
         'fantasy_name':provider.fantasy_name,
-        'tel':provider.tel,
-        'cel':provider.cel,
+
         'provider_details':f'http://127.0.0.1:8080/api/user/{provider.user_id}'
         
         }
@@ -196,8 +189,6 @@ def select_emergency_insured_by_id(id_emergency):
                 'first_name':insured.first_name,
                 'last_name': insured.last_name,
                 'cpf':insured.cpf,
-                'tel':insured.tel,
-                'cel':insured.cel,
                 'policy':{
                     'id':policy.id,
                     'number':policy.number,
@@ -210,8 +201,7 @@ def select_emergency_insured_by_id(id_emergency):
     provider_associated = {
         'id':provider.id,
         'fantasy_name':provider.fantasy_name,
-        'tel':provider.tel,
-        'cel':provider.cel,
+
         'provider_details':f'http://127.0.0.1:8080/api/user/{provider.user_id}'
         
     }
