@@ -3,6 +3,8 @@ from datetime import date, datetime
 from sqlalchemy.exc import SQLAlchemyError
 
 from models.provider import ProviderModel
+from .phone import select_phone_by_user_id
+
 
 def insert_into_provider( item, user):
     try:
@@ -60,7 +62,7 @@ def select_provider_by_user_id( user_id):
                 'business_name':provider.business_name,
                 'fantasy_name': provider.fantasy_name,
                 'cnpj':provider.cnpj,
-                'tel':provider.tel,
+                'phone':select_phone_by_user_id(user_id),
                 'address':provider.address,
                 'type_provider':provider.type_provider,
                 

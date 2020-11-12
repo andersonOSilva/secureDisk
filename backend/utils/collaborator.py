@@ -3,6 +3,7 @@ from datetime import date, datetime
 import sqlite3
 
 from models.collaborator import CollaboratorModel
+from .phone import select_phone_by_user_id
 
 def insert_into_collaborator( item, user):
     try:
@@ -39,6 +40,7 @@ def select_collaborator_by_user_id( user_id):
                 'id': collaborator.id,
                 'first_name':collaborator.first_name,
                 'last_name': collaborator.last_name,
+                'phone':select_phone_by_user_id(user_id),
                 'registration':collaborator.registration
             }
 

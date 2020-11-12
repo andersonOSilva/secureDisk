@@ -20,7 +20,7 @@ class PhoneModel(db.Model):
         return PhoneModel.query.filter_by(id=id_phone).first()
     
     @staticmethod
-    def get_by_id_user( id_user):
+    def get_by_user_id( id_user):
         return PhoneModel.query.filter_by(user_id=id_user).all()
     
     @staticmethod

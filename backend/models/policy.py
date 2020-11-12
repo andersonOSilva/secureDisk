@@ -14,7 +14,7 @@ class PolicyModel(db.Model):
 
     @staticmethod
     def get_by_number(number):
-        return db.session.query(PolicyModel).filter_by(number=number).first()
+        return PolicyModel.query.filter_by(number=number).first()
 
     @staticmethod
     def get_by_id(id_policy: int):

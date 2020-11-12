@@ -20,6 +20,7 @@ def insert_into_policy(item):
         return f"{e}", 500
 
 
+
 # tras os detalhes do plano da apolice
 def select_plan_policy_by_id(id_plan):
     plan = PlanPolicyModel.get_by_id(id_plan)

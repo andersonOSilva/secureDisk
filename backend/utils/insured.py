@@ -3,6 +3,7 @@ from datetime import date, datetime
 import sqlite3
 
 from models.pet import PetModel
+from models.phone import PhoneModel
 from models.policy import PolicyModel
 from models.insured import InsuredModel
 from models.proposal import ProposalModel
@@ -11,7 +12,9 @@ from models.petSchedule import PetScheduleModel
 from .validator import *
 
 from .policy import select_plan_policy_by_id 
-from utils.policy import insert_into_policy
+from .policy import insert_into_policy
+from .phone import select_phone_by_user_id
+
 
 def insert_into_insured( item, user):
     try:
@@ -46,9 +49,10 @@ def insert_into_insured( item, user):
 
 def select_insured_by_user_id(user_id):
     try:
+        # phone = PhoneModel.get_by_user_id(user_id)
         insured = InsuredModel.get_by_user_id(user_id)
         insured_policy = PolicyModel.get_by_id(insured.policy_id)
-
+        
         policy = {
             'id':insured_policy.id,
             'number':insured_policy.number,
@@ -65,6 +69,7 @@ def select_insured_by_user_id(user_id):
                 'first_name':insured.first_name,
                 'last_name': insured.last_name,
                 'cpf':insured.cpf,
+                'phone':select_phone_by_user_id(user_id),
                 'policy': policy
 
             }
@@ -75,6 +80,7 @@ def select_insured_by_user_id(user_id):
 
 def select_insured_by_policy_id(policy_id):
     try:
+        phone = PhoneModel.get_by_user_id(user_id) 
         insured = InsuredModel.get_by_policy_id(policy_id)
 
         if insured is None:
@@ -84,7 +90,8 @@ def select_insured_by_policy_id(policy_id):
                 'id': insured.id,
                 'first_name':insured.first_name,
                 'last_name': insured.last_name,
-                'cpf':insured.cpf
+                'cpf':insured.cpf,
+                'phone':phone
                 
             }
             
@@ -108,9 +115,9 @@ def update_insured( item, user):
                 insured.email = item['email']
             if 'cpf' in item:
                 insured.cpf = item['cpf']
-            if 'tel' in item:
-                insured.tel = item['tel']
-            if 'cel' in item:
+                # if 'tel' in item:
+                #     insured.tel = item['tel']
+                # if 'cel' in item:
                 insured.cel = item['cel']
             if 'status' in item:
                 insured.status = item['status'] 

@@ -7,7 +7,6 @@ from utils import *
 
 from models.user import UserModel
 
-
 class UserResource(Resource):
 
     def _list_user(self):
@@ -50,6 +49,7 @@ class UserResource(Resource):
                 user.save()
                 
                 user_inserted = UserModel.get_by_email(item['email'])
+                phone_inserted = insert_into_phone(item['tel'],user_inserted)
                 
                 # checa o tipo de usuario
                 if str(item["type_user"]) == "insured":
