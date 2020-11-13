@@ -6,6 +6,7 @@ from flask_jwt_simple import jwt_required, get_jwt
 from utils import *
 
 from models.user import UserModel
+from models.phone import PhoneModel
 
 class UserResource(Resource):
 
@@ -121,7 +122,6 @@ class UserDetailResource(Resource):
                     return user_update_validate(item), 400
 
                 user = UserModel.get_by_id(id)
-                print(user.email)
 
                 
                 if 'email' in item:
@@ -130,6 +130,8 @@ class UserDetailResource(Resource):
                     user.status = item['status']
                 if 'password' in item:
                     user.password = encrypt(item['password'])
+                if 'phone_original' in item:
+                    response = update_phone(item, user)
 
                 user.save()
 
@@ -150,7 +152,7 @@ class UserDetailResource(Resource):
 
     def delete(self, id):
         try:
-
+            phones = PhoneModel.get_by_user_id(id)
             user = UserModel.get_by_id(id)
             if user:
                 
@@ -164,6 +166,8 @@ class UserDetailResource(Resource):
                     
                 
                 if response["success"]:
+                    for phone in phones:
+                        phone.delete()
                     user.delete()
                 else:
                     return 'User no deleted', 500

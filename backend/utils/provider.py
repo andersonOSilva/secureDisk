@@ -41,7 +41,6 @@ def select_provider_by_id(id):
                 'business_name':provider.business_name,
                 'fantasy_name': provider.fantasy_name,
                 'cnpj':provider.cnpj,
-                'tel':provider.tel,
                 'address':provider.address,
                 'type_provider':provider.type_provider
             }
@@ -75,7 +74,6 @@ def select_provider_by_user_id( user_id):
 
 # @jwt_required
 def update_provider( item, user):
-    print(item)
     try:
         if item:
             provider = ProviderModel.get_by_user_id(user.id)
@@ -102,12 +100,10 @@ def update_provider( item, user):
             provider.save()
             return {"success":True,"message":'Provider edited'}
         else:
-            user.delete()
             return {"success":False, "message":'Not edited provider, invalid payload'}
         
     
     except Exception as e:
-        user.delete()
         return {"success":False, "message":f'{e} invalid payload','type_error':'provider/utils'}
 
 

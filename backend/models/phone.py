@@ -29,20 +29,24 @@ class PhoneModel(db.Model):
         
     @staticmethod
     def get_by_branch_line( branch_line):
-        return PhoneModel.query.filter_by(branch_line=branch_line).first()
+        return PhoneModel.query.filter_by(branch_line=branch_line).all()
     
     @staticmethod
     def get_by_webphone( webphone):
         return PhoneModel.query.filter_by(webphone=webphone).first()
+        
+    @staticmethod
+    def get_by_phone(phone):
+        return PhoneModel.query.filter_by(phone=phone).first()
 
+    @staticmethod
+    def get_by_status( status):
+        return PhoneModel.query.filter_by(status=status).all()
 
     @staticmethod
     def list_all():
         return PhoneModel.query.order_by(PhoneModel.created_date).all()
     
-    @staticmethod
-    def get_by_status( status):
-        return PhoneModel.query.filter_by(status=status).all()
 
     def save(self):
         db.session.merge(self)

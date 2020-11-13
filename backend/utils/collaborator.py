@@ -75,12 +75,10 @@ def update_collaborator( item, user):
             collaborator.save()
             return {"success":True,"message":'Collaborator edited'}
         else:
-            user.delete()
             return {"success":False, "message":'Not edited collaborator, invalid payload'}
         
     
     except Exception as e:
-        user.delete()
         return {"success":False, "message":f'{e} invalid payload','type_error':'collaborator/utils'}
 
 

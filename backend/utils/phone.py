@@ -51,3 +51,28 @@ def select_phone_by_user_id(id):
             # 'owner':select_user_by_id(phone.user_id)
         },phone))
     
+def update_phone( item, user):
+
+    try:
+        if item:
+            phone = PhoneModel.get_by_phone(item['phone_original']['phone'])
+
+            if 'phone' in item['phone_edited']:
+                phone.phone = item['phone_edited']['phone']
+            if 'webphone' in item['phone_edited']:
+                phone.webphone = item['phone_edited']['webphone']
+            if 'branch_line' in item['phone_edited']:
+                phone.branch_line = item['phone_edited']['branch_line']
+            if 'status' in item['phone_edited']:
+                phone.status = item['phone_edited']['status']
+            if 'user_id' in item['phone_edited']:
+                phone.user_id = item['phone_edited']['user_id']
+            
+            phone.save()
+            return {"success":True,"message":'Phone edited'}
+        else:
+            return {"success":False, "message":'Not edited phone, invalid payload'}
+        
+    
+    except Exception as e:
+        return {"success":False, "message":f'{e} invalid payload','type_error':'phone/utils'}

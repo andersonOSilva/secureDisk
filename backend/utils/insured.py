@@ -127,12 +127,10 @@ def update_insured( item, user):
             insured.save()
             return {"success":True,"message":'Insured edited'}
         else:
-            user.delete()
             return {"success":False, "message":'Not edited insured, invalid payload'}
         
     
     except Exception as e:
-        user.delete()
         return {"success":False, "message":f'{e} invalid payload','type_error':'insured/utils'}
 
 

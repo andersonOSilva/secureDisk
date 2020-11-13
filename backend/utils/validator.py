@@ -82,9 +82,6 @@ def insured_update_validate(request):
     if 'cpf' in request and not isinstance(request['cpf'], str) or 'cpf' in request and len(request['cpf']) > 14:
         return {'success': False, 'message':'cpf'}
     
-    if 'policy' not in request:
-        return {'success': False, 'message':'policy'}
-    
     return {'success':True}
 
 def provider_update_validate(request):
