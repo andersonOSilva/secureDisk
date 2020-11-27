@@ -2,7 +2,8 @@ from flask import request, jsonify
 from flask_restful import Resource
 from datetime import date, datetime
 
-from models.emergency import EmergencyModel
+# from models.emergency import EmergencyModel
+from models.emergencyInsured import EmergencyInsuredModel
 from models.provider import ProviderModel
 from models.policy import PolicyModel
 from flask_jwt_simple import jwt_required, get_jwt
@@ -18,6 +19,7 @@ class EmergencyInsuredResource(Resource):
             model.call_type = item["call_type"]
             model.latitude  = item["lat"]
             model.longitude = item["log"]
+            model.status = item["status"]
             model.policy_id = item["policy_id"]
             model.created_date = date.today()
 
@@ -47,6 +49,7 @@ class EmergencyInsuredDetailResource(Resource):
             'call':emergency.call,
             'lat':emergency.latitude,
             'log':emergency.longitude,
+            'status':emergency.status,
             'provider':select_provider_by_id(emergency.provider_id),
             'pacient':pacient
         }

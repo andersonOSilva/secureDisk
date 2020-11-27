@@ -21,6 +21,7 @@ def insert_into_emergency_insured(item):
             model.call = item['call']
             model.call_type = item['call_type']
             model.label = item['label']
+            model.status = item['status']
             model.longitude = item['log']
             model.latitude = item['lat']
             model.collab_id = item['collab_id']
@@ -44,6 +45,7 @@ def insert_into_emergency_pet(item):
             model.call = item['call']
             model.call_type = item['call_type']
             model.label = item['label']
+            model.status = item['status']
             model.longitude = item['log']
             model.latitude = item['lat']
             model.collab_id = item['collab_id']
@@ -75,7 +77,7 @@ def select_emergency_pet_by_id(id_emergency):
             'date':emergency.date,
             'time':emergency.time,
             'email':emergency.email,
-            'status':emergency.status,
+            'status_emergency':emergency.status,
             'created_date':emergency.created_date.strftime("%d/%m/%Y"),
             'provider':provider_associated,
             'pet_pacient':select_pet_by_proposal_id(emergency.proposal_id)
@@ -123,6 +125,7 @@ def select_emergency_insured_by_policy(policy_number):
             'call':emergency.call,
             'latitude':emergency.latitude,
             'longitude':emergency.longitude,
+            'status_emergency':emergency.status,
             'created_date':emergency.created_date.strftime("%d/%m/%Y"),
             'provider':provider_associated,
             'insured_pacient':insured_pacient
@@ -172,6 +175,7 @@ def select_emergency_pet_by_proposal(proposal_number):
             'call':emergency.call,
             'latitude':emergency.latitude,
             'longitude':emergency.longitude,
+            'status_emergency':emergency.status,
             'created_date':emergency.created_date.strftime("%d/%m/%Y"),
             'provider':provider_associated,
             'insured_pacient':insured_pacient
@@ -212,7 +216,7 @@ def select_emergency_insured_by_id(id_emergency):
             'date':emergency.date,
             'time':emergency.time,
             'email':emergency.email,
-            'status':emergency.status,
+            'status_emergency':emergency.status,
             'created_date':emergency.created_date.strftime("%d/%m/%Y"),
             'provider':provider_associated,
             'insured_pacient':insured_pacient

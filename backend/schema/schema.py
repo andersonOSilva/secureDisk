@@ -5,7 +5,7 @@ from models.policy import PolicyModel
 from models.insured import InsuredModel
 from models.provider import ProviderModel
 from models.proposal import ProposalModel
-from models.emergency import EmergencyModel
+# from models.emergency import EmergencyModel
 from models.planPolicy import PlanPolicyModel
 from models.petSchedule import PetScheduleModel
 from models.planProposal import PlanProposalModel

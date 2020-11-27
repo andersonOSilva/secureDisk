@@ -2,7 +2,8 @@ from flask import request, jsonify
 from flask_restful import Resource
 from datetime import date, datetime
 
-from models.emergency import EmergencyModel
+from models.emergencyInsured import EmergencyInsuredModel
+from models.emergencyPet import EmergencyPetModel
 from models.provider import ProviderModel
 from models.proposal import ProposalModel
 from flask_jwt_simple import jwt_required, get_jwt
@@ -19,6 +20,7 @@ class EmergencyResource(Resource):
             'call':emergency.call,
             'lat':emergency.latitude,
             'log':emergency.longitude,
+            'status':emergency.status,
             'provider_name':select_provider_by_id(emergency.provider_id)['fantasy_name']
         },emergencyPet))
         
@@ -30,6 +32,7 @@ class EmergencyResource(Resource):
             'call':emergency.call,
             'lat':emergency.latitude,
             'log':emergency.longitude,
+            'status':emergency.status,
             'provider_name':select_provider_by_id(emergency.provider_id)['fantasy_name']
         },emergencyInsured))
 

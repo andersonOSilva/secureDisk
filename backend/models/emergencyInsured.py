@@ -10,6 +10,8 @@ class EmergencyInsuredModel(db.Model):
     latitude: str = db.Column(db.String(999), nullable=False)
     longitude: str = db.Column(db.String(999), nullable=False)
     
+    status: str = db.Column(db.String(999), nullable=False)
+    
 
     policy_id = db.Column(db.Integer, db.ForeignKey('policy.id', ondelete='CASCADE', onupdate='CASCADE'),nullable=False)
     provider_id = db.Column(db.Integer, db.ForeignKey('provider.id', ondelete='CASCADE', onupdate='CASCADE'), default=0)
@@ -27,6 +29,10 @@ class EmergencyInsuredModel(db.Model):
     @staticmethod
     def get_by_collab(collab_id):
         return db.session.query(EmergencyInsuredModel).filter_by(collab_id=collab_id).all()
+
+    @staticmethod
+    def get_by_status(status):
+        return db.session.query(EmergencyPetModel).filter_by(status=status).all()
     
     @staticmethod
     def get_by_provider(provider_id):
